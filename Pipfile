@@ -12,6 +12,7 @@ django-rest-auth = "*"
 django-allauth = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
