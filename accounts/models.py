@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='profiles/', null=True)
-    bio = models.CharField(max_length = 150)
+    bio = models.CharField(max_length = 150, null=True)
 
     def __str__(self):
         return self.user.username
