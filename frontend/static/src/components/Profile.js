@@ -6,12 +6,27 @@ import { Redirect } from "react-router-dom";
 class Profile extends Component {
   constructor(props) {
     super(props);
+
+  const uploadedImage = React.useRef(null);
+  const imageUploader = React.useRef(null);
+
+  const handleImageUpload = e.target.files;
+  if (file) {
+    const reader = new FileReader();
+    const{current} = uploadedImage;
+    current.file = file;
+    reader.onload = (e) => {
+      current.src = e.target.result;
+    }
+    reader.readAsDataURL(file);
   }
 
-  async componentDidMount() {
-    const response = await fetch("/rest-auth/user/");
-    const data = await response.json();
-    console.log(data);
+  }
+
+  componentDidMount() {
+    const response = fetch("/rest-auth/user/");
+    // const data = response.json();
+    console.log(response);
   }
 
   render() {
@@ -20,7 +35,10 @@ class Profile extends Component {
         <div>
           <h1>Username</h1>
           <div classname="profpic">
-            <img src="#" alt="user" />
+            <input type='file' accept='image/*' ref={imageUploader} multiple='False' onChange={handleImageUpload}/>
+            <div onClick= {() => imageUploader.current.click()}
+            <img ref={uploadedImage}/>
+            </div>
           </div>
           <div classname="bio">
             <p>My Bio:</p>
