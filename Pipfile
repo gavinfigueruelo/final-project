@@ -13,6 +13,7 @@ django-allauth = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
 dj-database-url = "*"
+bootstrap-py = "*"
 
 [dev-packages]
 

@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 
 import Login from './components/Login';
 import Register from './components/Register';
+import Profile from './components/Profile';
 
 import Header from './components/Header';
 
@@ -104,6 +105,9 @@ class App extends Component {
           </Route>
           <Route path="/register" >
             <Register  handleRegistration={this.handleRegistration}/>
+          </Route>
+          <Route path="/profile" >
+            <Profile/>
           </Route>
         </Switch>
       </React.Fragment>

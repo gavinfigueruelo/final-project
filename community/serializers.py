@@ -1,10 +1,9 @@
 from rest_framework import serializers
-from .models import PlantJournal
+from .models import Community
 
-
-class PlantJournal(serializers.Model.serializer):
+class Community(serializers.models.serializer):
     author = serializers.ReadOnlyField(source='author.username')
 
     class Meta:
-        model = PlantJournal
+        model = Community
         fields = '__all__'

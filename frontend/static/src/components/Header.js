@@ -9,6 +9,7 @@ function Header(props) {
 
     <ul className="nav-bar">
       <li className="nav-bar-right"><NavLink to="/">Home</NavLink></li>
+      <li className="nav-bar-left"><NavLink to="/profile/">Profile</NavLink> </li>
 
 
       {!isAuth
@@ -25,6 +26,6 @@ function Header(props) {
   )
 }
 
-export default Header
+export default Header;
 //{isAuth && !isAdmin && <li className="nav-bar-left" ><NavLink to="/profile/">Profile</NavLink></li>}
 //{isAuth && isAdmin && <li className="nav-bar-left" ><NavLink to="/profile/admin">Admin Profile</NavLink></li>}
