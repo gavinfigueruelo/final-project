@@ -35,10 +35,7 @@ class Profile extends Component {
         <div>
           <h1>Username</h1>
           <div classname="profpic">
-            <input type='file' accept='image/*' ref={imageUploader} multiple='False' onChange={handleImageUpload}/>
-            <div onClick= {() => imageUploader.current.click()}
-            <img ref={uploadedImage}/>
-            </div>
+            <input type='file' accept='image/*' multiple='False'/>
           </div>
           <div classname="bio">
             <p>My Bio:</p>
