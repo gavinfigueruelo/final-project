@@ -107,9 +107,6 @@ class App extends Component {
           <Route path="/register" >
             <Register  handleRegistration={this.handleRegistration}/>
           </Route>
-          <Route path="/profile" >
-            <Profile/>
-          </Route>
         </Switch>
       </React.Fragment>
 
