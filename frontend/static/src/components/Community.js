@@ -4,10 +4,6 @@ import CommunityPost from './CommunityPost';
 
 
 class Community extends Component {
-  constructor(props) {
-    super(props);
-
-  }
 
 render(){
   return (

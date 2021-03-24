@@ -12,7 +12,7 @@ from .models import Plant
 
 # Create your views here.
 
-class PlantListAPIView(generics.ListCreateAPIView):
+class PlantListAPIView(generics.ListAPIView):
     serializer_class = PlantSerializer
 
     def get_queryset(self):
@@ -27,5 +27,21 @@ class PlantDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 @api_view(['GET'])
 def get_plants(request):
+    # get initial plant list from trefle api
     response = requests.get(f"https://trefle.io/api/v1/plants?token={os.environ.get('TREFLE_TOKEN')}")
     return Response(response.json())
+
+
+@api_view(['POST'])
+def add_plant(request):
+    # create the plant if it doesn't exists and add user to plant's user's list (many-to-many relationship)
+    # import pdb; pdb.set_trace()
+    plant, created = Plant.objects.get_or_create(
+        api_id=request.data.get('api_id'),
+        common_name=request.data.get('common_name'),
+        family=request.data.get('family'),
+        image_url=request.data.get('image_url'),
+        publication_year=request.data.get('publication_year'),
+        )
+    plant.users.add(request.user)
+    return Response("It worked")

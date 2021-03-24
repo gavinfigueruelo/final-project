@@ -9,7 +9,8 @@ class Plant(models.Model):
     family = models.CharField(max_length=255, null=True)
     image_url = models.URLField(null=True)
     publication_year = models.SmallIntegerField(null=True)
-    users = models.ManyToManyField(User)
+    api_id = models.IntegerField(unique=True, null=True)
+    users = models.ManyToManyField(User, blank=True)
 
-    def __srt__(self):
-        return self.common_name[:50]
+    # def __str__(self):
+    #     return self.common_name[:50]

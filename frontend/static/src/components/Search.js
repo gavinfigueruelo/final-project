@@ -1,14 +1,13 @@
-import React, {Component} from 'react';
-
+import React, { Component } from "react";
+import Cookies from 'js-cookie';
 
 class Search extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      serach: '',
+      serach: "",
       plants: [],
-    }
+    };
 
     this.fetchPlants = this.fetchPlants.bind(this);
     this.addPlant = this.addPlant.bind(this);
@@ -19,35 +18,56 @@ class Search extends Component {
   }
 
   async fetchPlants() {
-    const response = await fetch('/api/v1/trefle/plants');
+    const response = await fetch("/api/v1/trefle/plants/");
     const data = await response.json();
+    console.log("search", data);
     this.setState({ plants: data.data });
   }
 
-  async addPlant() {
-    const response = await fetch('/api/v1/trefle/plants');
-    const data = await response.json();
+  async addPlant(plant) {
+
+    const obj = {
+      common_name: plant.common_name,
+      family: plant.family,
+      image_url: plant.image_url,
+      publication_year: plant.year,
+      api_id: plant.id
+    }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken' : Cookies.get('csrftoken'),
+      },
+      body: JSON.stringify(obj),
+    };
+
+    const response = await fetch("/api/v1/user/plants/add/", options);
+    console.log(response);
   }
 
-
   render() {
-    const plants = this.state.plants.map(plant => (
+    const plants = this.state.plants.map((plant) => (
       <li key={plant.id}>
         <p>{plant.common_name}</p>
         <img src={plant.image_url} />
-        <button type="button" onClick={this.addPlant}>Add to profile</button>
+        <button type="button" onClick={() => this.addPlant(plant)}>
+          Add to profile
+        </button>
       </li>
     ));
     return (
       <>
-      <input type="text" name="search"/>
-      <ul>
-        { plants }
-      </ul>
+        <div namespace="home_container">
+          <div namespace="search_bar">
+            <input type="text" name="search" />
+          </div>
+          <ul>{plants}</ul>
+        </div>
       </>
-    )
+    );
   }
 }
-
 
 export default Search;

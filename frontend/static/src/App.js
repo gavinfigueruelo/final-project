@@ -7,6 +7,7 @@ import Register from './components/Register';
 import Profile from './components/Profile';
 import Community from './components/Community';
 import Search from './components/Search';
+import './App.css';
 
 
 import Header from './components/Header';
