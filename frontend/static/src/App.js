@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
+import CommunityPage from './components/CommunityPage';
 
 
 import Header from './components/Header';
@@ -109,6 +110,9 @@ class App extends Component {
           </Route>
           <Route path="/profile" >
             <Profile/>
+          </Route>
+          <Route path="/community" >
+            <CommunityPage/>
           </Route>
         </Switch>
       </React.Fragment>

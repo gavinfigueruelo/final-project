@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-class CommunityPage extends Component {
+class ProfilePage extends Component {
   constructor(props) {
     super(props);
 
@@ -9,10 +9,10 @@ class CommunityPage extends Component {
 
 render(){
   return(
-    <div namespace="pagepost">
+    <div namespace="profile_container">
       <h1> Welcome to the Plant Community!</h1>
     </div>
   )
 }
 }
-export default CommunityPage;
+export default ProfilePage;
