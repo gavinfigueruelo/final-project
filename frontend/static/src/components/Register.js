@@ -25,8 +25,8 @@ render(){
       <input className="reginput" type="password" name="password2" value={this.state.password2} placeholder="confirm password" onChange={this.handleInput}/>
       <button className="btn" type="submit">Register</button>
     </form>
-  )
-};
+  );
+}
 
 }
 

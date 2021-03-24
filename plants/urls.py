@@ -1,11 +1,11 @@
-from django.url import path
+from django.urls import path
 
-from .views import PlantJournalListView, PlantJournalDetailView
+from . import views
 
 app_name = 'plants'
 
 urlpatterns = [
-    path('', views.PlantJournalListView.as_view()),
-    path('<int:pk>/', views.PlantJournalDetailView.as_view()),
-    path('edit<int:pk>/', views.PlantJournalDetailView.as_view()),
+    path('user/plants/', views.PlantListAPIView.as_view()),
+    path('<int:pk>/', views.PlantDetailAPIView.as_view()),
+    path('trefle/plants/', views.get_plants),
 ]

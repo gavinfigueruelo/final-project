@@ -1,11 +1,15 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
+User = get_user_model()
+
 # Create your models here.
-class PlantJournal(models.Model):
-    title = models.CharField(max_length=50)
-    text = models.CharField(max_length=500, help_text='Start a journal on a plant!')
-    image_upload = models.ImageField(null = True)
-    # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, null = True)
+class Plant(models.Model):
+    common_name = models.CharField(max_length=255, null=True)
+    family = models.CharField(max_length=255, null=True)
+    image_url = models.URLField(null=True)
+    publication_year = models.SmallIntegerField(null=True)
+    users = models.ManyToManyField(User)
 
     def __srt__(self):
-        return self.title[:50]
+        return self.common_name[:50]

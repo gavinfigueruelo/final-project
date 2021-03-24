@@ -22,6 +22,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'profile_picture', 'username')
 
 
+
 # class TokenSerializer(serializers.ModelSerializer):
 #     username = serializers.ReadOnlyField(source='user.username')
 #     user = UserSerializer()

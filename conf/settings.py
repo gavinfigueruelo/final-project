@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
     'plants.apps.PlantsConfig',
-    # 'community.apps.CommunityConfig',
+    'community.apps.CommunityConfig',
     'frontend.apps.FrontendConfig',
 ]
 

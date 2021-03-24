@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import PlantJournal
+from .models import Plant
 
 # Register your models here.
 
-admin.site.register(PlantJournal)
+admin.site.register(Plant)

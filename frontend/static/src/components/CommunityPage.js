@@ -7,6 +7,9 @@ class CommunityPage extends Component {
 
   }
 
+
+
+
 render(){
   return(
     <div namespace="pagepost">

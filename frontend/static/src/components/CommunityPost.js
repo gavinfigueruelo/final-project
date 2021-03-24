@@ -9,20 +9,21 @@ class CommunityPost extends Component {
 
     }
   }
-}
+
 
 render(){
   return (
     <div namespace="container_post">
       <form>
-        <textarea namespace="community_post">
-          <label>Ask a Question, Share a Thought, or Post a Picture of Your Plant!</label><br>
+        <div namespace="community_post">
+          <label>Ask a Question, Share a Thought, or Post a Picture of Your Plant!</label><br/>
           <input type="text" namespace="text_post"/>
           <input type="file" namespace="file_post"/>
-        </textarea>
+        </div>
       </form>
     </div>
-  )
+  );
+  }
 }
 
-export default CommunityPage;
+export default CommunityPost;

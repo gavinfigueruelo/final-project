@@ -5,7 +5,8 @@ import Cookies from 'js-cookie';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
-import CommunityPage from './components/CommunityPage';
+import Community from './components/Community';
+import Search from './components/Search';
 
 
 import Header from './components/Header';
@@ -112,7 +113,10 @@ class App extends Component {
             <Profile/>
           </Route>
           <Route path="/community" >
-            <CommunityPage/>
+            <Community/>
+          </Route>
+          <Route path="/search" >
+            <Search/>
           </Route>
         </Switch>
       </React.Fragment>

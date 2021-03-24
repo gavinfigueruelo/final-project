@@ -12,7 +12,7 @@ render(){
     <div namespace="profile_container">
       <h1> Welcome to the Plant Community!</h1>
     </div>
-  )
+  );
 }
 }
 export default ProfilePage;

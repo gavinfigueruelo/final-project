@@ -43,7 +43,7 @@ class Profile extends Component {
       body: formData,
     };
 
-    const response = await fetch("/api/v1/profiles/create/", options);
+    const response = await fetch("/api/v1/profiles/", options);
     const data = await response.json().catch((error) => console.log(error));
     console.log(data);
   }

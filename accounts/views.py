@@ -11,12 +11,14 @@ class ProfileListView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+
 class ProfileDetailView(generics.RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
     def get_object(self):
         return get_object_or_404(Profile, user=self.request.user)
+
 
 class ProfileRetrieveView(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
