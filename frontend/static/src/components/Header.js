@@ -8,7 +8,7 @@ function Header(props) {
     <div className="header_nav">
       <ul className="nav-bar">
         <li className="nav-bar-right">
-          <NavLink to="/">Home </NavLink>
+          <NavLink to="/search">Home </NavLink>
         </li>
         <li className="nav-bar-right">
           <NavLink to="/profile/">Profile </NavLink>{" "}

@@ -20,10 +20,10 @@ render(){
   return(
     <div class='login_outer'>
     <form className="loginform" onSubmit={(e) => this.props.handleLogin(e, this.state)}>
-      <input type="text" className="username_input" value={this.state.username} placeholder="username" onChange={this.handleInput}/><br/>
-      <input type="email" className="email_input" value={this.state.email} placeholder="email" onChange={this.handleInput}/><br/>
-      <input type="password" className="password_input" value={this.state.password} placeholder="password" onChange={this.handleInput}/><br/>
-      <button className="login_btn" >Login</button>
+      <input type="text" name="username" value={this.state.username} placeholder="username" onChange={this.handleInput}/><br/>
+      <input type="email" name="email" value={this.state.email} placeholder="email" onChange={this.handleInput}/><br/>
+      <input type="password" name="password" value={this.state.password} placeholder="password" onChange={this.handleInput}/><br/>
+      <button className="btn" type="submit">Login</button>
     </form>
     </div>
   );
