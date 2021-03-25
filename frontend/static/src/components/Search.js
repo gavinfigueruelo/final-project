@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 class Search extends Component {
   constructor(props) {
@@ -25,20 +25,19 @@ class Search extends Component {
   }
 
   async addPlant(plant) {
-
     const obj = {
       common_name: plant.common_name,
       family: plant.family,
       image_url: plant.image_url,
       publication_year: plant.year,
-      api_id: plant.id
-    }
+      api_id: plant.id,
+    };
 
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken' : Cookies.get('csrftoken'),
+        "Content-Type": "application/json",
+        "X-CSRFToken": Cookies.get("csrftoken"),
       },
       body: JSON.stringify(obj),
     };
@@ -61,9 +60,12 @@ class Search extends Component {
       <>
         <div namespace="home_container">
           <div namespace="search_bar">
-            <input type="text" name="search" />
+          <label>Search</label>
+            <input type="text" className="searching" />
           </div>
-          <ul>{plants}</ul>
+          <div class="plant_list">
+            <ul>{plants}</ul>
+          </div>
         </div>
       </>
     );
