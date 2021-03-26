@@ -5,11 +5,11 @@ body {
 }
 
 html {
-  background-image: url('./images/plantbackground1.jpg');
-  background-size: 75%;
+  background-image: url('./images/minthex.jpg');
+  background-size: 100%;
   background-position: center;
-  background-repeat: no-repeat;
   background-position: top;
+  height: auto;
 
 }
 
@@ -80,7 +80,6 @@ html {
   max-width:1500px;
   text-align: center;
   max-height: 40px;
-  top: 15px;
   font-size: 25px;
   padding-left: 80px;
   padding-right: 80px;
@@ -96,10 +95,19 @@ ul.nav-bar {
 
 .header_nav {
   max-height: 40px;
-  background-color: ;
+}
+
+.nav-bar-right a{
+  text-decoration: none;
+  color: black;
+}
+
+.nav-bar-left a{
+  text-decoration: none;
+  color: black;
 }
 /* /////////////////////////////////SEARCH */
-.plant_list {
+.plant_list ul{
   max-width: 400px;
 }
 

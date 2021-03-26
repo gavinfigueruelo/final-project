@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import Cookies from "js-cookie";
 
+
+const endpoint = '/api/v1/community/'
 
 class CommunityPost extends Component {
   constructor(props) {
@@ -9,6 +12,35 @@ class CommunityPost extends Component {
 
     }
   }
+
+  handleSubmit(event){
+    event.preventDefault();
+
+  const message = {
+      text: this.state.text,
+       }
+    console.log('message i sent', message)
+      fetch(`${endpoint}create/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken' : Cookies.get('csrftoken'),
+            },
+            body: JSON.stringify(message),
+          })
+            .then(response => {
+            if(!response.ok){
+              throw new Error ('Bad Post request');
+            }
+            return response.json()
+            })
+          .then(data => {
+            this.props.addMessage(data);
+            console.log('Message sent!', data)})
+          .catch(error => console.log('Error:', error))
+          .finally('I am always going to fire!');
+          this.setState({text: ""})
+          };
 
 
 render(){

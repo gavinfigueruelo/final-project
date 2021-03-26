@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 import Login from './components/Login';
 import Register from './components/Register';
-import Profile from './components/Profile';
+import ProfilePage from './components/ProfilePage';
 import Community from './components/Community';
 import Search from './components/Search';
 import './App.css';
@@ -111,7 +111,7 @@ class App extends Component {
             <Register  handleRegistration={this.handleRegistration}/>
           </Route>
           <Route path="/profile" >
-            <Profile/>
+            <ProfilePage/>
           </Route>
           <Route path="/community" >
             <Community/>
