@@ -11,6 +11,12 @@ class CommunityPost extends Component {
       post: '',
 
     }
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleInput(event){
+  this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSubmit(event){
@@ -35,22 +41,23 @@ class CommunityPost extends Component {
             return response.json()
             })
           .then(data => {
-            this.props.addMessage(data);
+            this.props.addMessages(data);
             console.log('Message sent!', data)})
           .catch(error => console.log('Error:', error))
           .finally('I am always going to fire!');
-          this.setState({text: ""})
+          this.setState({post: ""})
           };
 
 
 render(){
   return (
     <div namespace="container_post">
-      <form>
-        <div namespace="community_post">
-          <label>Ask a Question, Share a Thought, or Post a Picture of Your Plant!</label><br/>
-          <input type="text" namespace="text_post"/>
+      <form className="form" onSubmit={this.handleSubmit}>
+        <div namespace="com_post">
+          <label htmlFor="community-post">Ask a Question, Share a Thought, or Post a Picture of Your Plant!</label><br/>
+          <input type="text" name="post" id= "community-post" value={this.state.post} onChange={this.handleInput} placeholder="type message here" required/>
           <input type="file" namespace="file_post"/>
+          <button type="submit">Post!</button>
         </div>
       </form>
     </div>
