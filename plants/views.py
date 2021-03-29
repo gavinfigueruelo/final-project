@@ -2,7 +2,8 @@ import os
 import requests
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
-from rest_framework import generics, status
+from rest_framework import generics, status, permissions
+from .permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import PlantSerializer
@@ -14,6 +15,7 @@ from .models import Plant
 
 class UserPlantListAPIView(generics.ListAPIView):
     serializer_class = PlantSerializer
+    permission_classes = [permissions.IsAdminUser | IsOwnerOrReadOnly,]
 
     def get_queryset(self):
         return self.request.user.plant_set.all()
@@ -22,6 +24,7 @@ class UserPlantListAPIView(generics.ListAPIView):
 class PlantDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Plant.objects.all()
     serializer_class = PlantSerializer
+    permission_classes = [permissions.IsAdminUser | IsOwnerOrReadOnly,]
 
 
 # get initial plant list from trefle api

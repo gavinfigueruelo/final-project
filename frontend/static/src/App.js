@@ -13,6 +13,8 @@ import Header from "./components/Header";
 
 import "./App.css";
 
+const endpoint = '/api/v1/community/'
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +27,7 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
   }
+
 
   async handleLogin(e, obj) {
     e.preventDefault();
@@ -52,6 +55,7 @@ class App extends Component {
     this.addMessages = this.addMessages.bind(this);
   }
 
+
   async handleRegistration(e, obj) {
     e.preventDefault();
 
@@ -76,6 +80,7 @@ class App extends Component {
       this.props.history.push("/");
     }
   }
+
 
   async handleLogOut(e) {
     e.preventDefault();
@@ -102,12 +107,31 @@ class App extends Component {
     }
   }
 
+
+  componentDidMount() {
+        fetch(`${endpoint}`)
+          .then(res => res.json())
+          .then(
+            (result) => {
+              console.log('response', result)
+              this.setState({
+                messages: result
+              });
+            },
+            (error) => {
+              this.setState({
+                error
+              });
+            }
+          )
+      }
   addMessages(message) {
     const messages = [...this.state.messages];
     console.log("messaging", message);
     messages.push(message);
     this.setState({ messages });
   }
+
 
   render() {
     return (
