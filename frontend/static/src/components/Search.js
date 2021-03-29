@@ -60,12 +60,10 @@ class Search extends Component {
       <>
         <div namespace="home_container">
           <div namespace="search_bar">
-          <label>Search</label>
+          <h2>Search</h2>
             <input type="text" className="searching" />
           </div>
-          <div class="plant_list">
-            <ul>{plants}</ul>
-          </div>
+            <ul class="plant_list">{plants}</ul>
         </div>
       </>
     );

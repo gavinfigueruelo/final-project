@@ -1,5 +1,8 @@
+import requests
 from rest_framework import generics
 from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 #to use generic views
 from .models import Profile
 from .serializers import ProfileSerializer
@@ -23,3 +26,11 @@ class ProfileDetailView(generics.RetrieveUpdateAPIView):
 class ProfileRetrieveView(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+  # 
+  # @api_view(['GET'])
+  # def current_user(request):
+  #   user = request.user
+  #   return Response({
+  #     'username' : user.username,
+  #   })
