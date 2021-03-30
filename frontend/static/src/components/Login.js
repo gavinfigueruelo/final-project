@@ -10,11 +10,31 @@ class Login extends Component{
 
     }
     this.handleInput = this.handleInput.bind(this);
+    this.clickLogin = this.clickLogin.bind(this);
+    this.clickRegister = this.clickRegister.bind(this);
   }
 
   handleInput(event) {
     this.setState({[event.target.name]: event.target.value});
   }
+  
+
+  clickLogin(){
+  const login = this.state.clickLogin;
+  if(login === false)
+  this.setState({clickLogin: true})
+  else if(login === true)
+  this.setState({clickLogin: false})
+}
+
+
+clickRegister(){
+  const register = this.state.clickRegister;
+  if(register === false)
+  this.setState({clickRegister: true})
+  else if(register === true)
+  this.setState({clickRegister: false})
+}
 
 render(){
   return(

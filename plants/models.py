@@ -14,3 +14,6 @@ class Plant(models.Model):
 
     # def __str__(self):
     #     return self.common_name[:50]
+
+class Note(models.Model):
+    pass
