@@ -12,8 +12,8 @@ class Plant(models.Model):
     api_id = models.IntegerField(unique=True, null=True)
     users = models.ManyToManyField(User, blank=True)
 
-    # def __str__(self):
-    #     return self.common_name[:50]
+    def __str__(self):
+        return self.common_name
 
 class Note(models.Model):
     title = models.CharField(max_length=100, null=True)
@@ -22,3 +22,6 @@ class Note(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
     # has to have a realationship to a plant and to a user
+
+    def __str__(self):
+        return self.title

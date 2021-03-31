@@ -6,8 +6,8 @@ from rest_framework import generics, status, permissions
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .serializers import PlantSerializer
-from .models import Plant
+from .serializers import PlantSerializer, NoteSerializer
+from .models import Plant, Note
 
 # User = get_user_model()
 
@@ -25,6 +25,18 @@ class PlantDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Plant.objects.all()
     serializer_class = PlantSerializer
     # permission_classes = [permissions.IsAdminUser | IsOwnerOrReadOnly,]
+
+class NoteDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+
+
+class NoteCreateAPIView(generics.ListCreateAPIView):
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+    # 
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.owner)
 
 
 @api_view(['GET'])

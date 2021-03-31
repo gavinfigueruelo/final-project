@@ -11,6 +11,7 @@ class Search extends Component {
     this.fetchPlants = this.fetchPlants.bind(this);
     this.addPlant = this.addPlant.bind(this);
     this.searchPlants = this.searchPlants.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
   componentDidMount() {
@@ -23,7 +24,7 @@ class Search extends Component {
 
  async searchPlants() {
    if(this.state.search.trim().length) {
-     const response = await fetch(`/api/v1/trefle/plants/search/?q=${this.state.searchPlants}`);
+     const response = await fetch(`/api/v1/plants/search/?q=${this.state.search}`);
      const data = await response.json();
      this.setState({ plants: data.data });
    } else {
@@ -32,7 +33,7 @@ class Search extends Component {
  }
 
   async fetchPlants() {
-    const response = await fetch("/api/v1/trefle/plants/");
+    const response = await fetch("/api/v1/plants/");
     const data = await response.json();
     console.log("search", data);
     this.setState({ plants: data.data });
@@ -59,9 +60,9 @@ class Search extends Component {
   }
   render() {
     const plants = this.state.plants.map((plant) => (
-      <div className="col-3 px-2">
+      <div className="col-3 px-2" key={plant.id}>
         <div className="card mb-3">
-          <div className="plant-img_container"><img src={plant.image_url} class="card-img-top" alt={plant.common_name}/></div>
+          <div className="plant-img_container"><img src={plant.image_url} className="card-img-top" alt={plant.common_name}/></div>
           <div className="card-body">
             <h5 className="card-title">{plant.common_name}</h5>
             <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>

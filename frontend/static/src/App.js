@@ -13,7 +13,7 @@ import Header from "./components/Header";
 
 import "./App.css";
 
-const endpoint = '/api/v1/community/'
+
 
 class App extends Component {
   constructor(props) {
@@ -26,6 +26,7 @@ class App extends Component {
     this.handleRegistration = this.handleRegistration.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
+
   }
 
 
@@ -52,7 +53,7 @@ class App extends Component {
       this.setState({ isLoggedIn: true });
       this.props.history.push("/");
     }
-    this.addMessages = this.addMessages.bind(this);
+    // this.addMessages = this.addMessages.bind(this);
   }
 
 
@@ -105,31 +106,6 @@ class App extends Component {
       this.setState({ isLoggedIn: false });
       this.props.history.push("/login/");
     }
-  }
-
-
-  componentDidMount() {
-        fetch(`${endpoint}`)
-          .then(res => res.json())
-          .then(
-            (result) => {
-              console.log('response', result)
-              this.setState({
-                messages: result
-              });
-            },
-            (error) => {
-              this.setState({
-                error
-              });
-            }
-          )
-      }
-  addMessages(message) {
-    const messages = [...this.state.messages];
-    console.log("messaging", message);
-    messages.push(message);
-    this.setState({ messages });
   }
 
 

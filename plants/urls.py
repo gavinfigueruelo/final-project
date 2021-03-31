@@ -8,6 +8,8 @@ urlpatterns = [
     path('user/plants/add/', views.add_plant),
     path('user/plants/', views.UserPlantListAPIView.as_view()),
     path('user/plants/<int:pk>/', views.PlantDetailAPIView.as_view()),
-    path('trefle/plants/search', views.get_plants_by_name),
-    path('trefle/plants/', views.get_plants),
+    path('user/plants/note/', views.NoteCreateAPIView.as_view()),
+    path('user/plants/note/edit/', views.NoteDetailAPIView.as_view()),
+    path('plants/search/', views.get_plants_by_name),
+    path('plants/', views.get_plants),
 ]
