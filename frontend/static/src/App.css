@@ -1,12 +1,13 @@
-body {
+ body {
   max-height:900px;
-  max-width: 1400px;
-
+  max-width: 1440px;
+  /* background-image: url('./images/palegreen.jpeg'); */
+  background-color: inherit;
 }
 
 html {
   background-image: url('./images/palegreen.jpeg');
-  background-size: 100%;
+  /* background-size: 100%; */
   background-position: center;
   background-position: top;
   height: auto;
@@ -94,7 +95,7 @@ login_outer input {
 .nav-bar li {
   display: inline;
   background: #759B84;
-  max-width:1500px;
+  max-width:1440px;
   text-align: center;
   max-height: 40px;
   font-size: 30px;
@@ -115,8 +116,8 @@ ul.nav-bar {
 }
 
 .header_nav {
-  max-height: 40px;
-  position: sticky;
+  height: 100px;
+  position: relative;
   left: 0px;
   right: 0px;
 }
@@ -131,7 +132,7 @@ ul.nav-bar {
   color: black;
 }
 /* /////////////////////////////////SEARCH */
-.plant_list li img{
+ /* .plant_list li img{
   border: 4px solid lightgrey;
   max-width: 30%;
   height: auto;
@@ -171,7 +172,7 @@ ul.plant_list {
   top: 120px;
   font-size: 10px;
 }
-
+*/
 .searching {
   position: absolute;
   left: 650px;
@@ -181,4 +182,17 @@ ul.plant_list {
   box-sizing: border-box;
   background-color: #F0FFF0;
   top: 120px;
+  height: 40px;
+}
+
+.plant_list {
+  position: relative;
+  top: 75px;
+}
+
+.search-title {
+  max-width: inherit;
+  position: relative;
+  text-align: center;
+  font-size: 20px;
 }

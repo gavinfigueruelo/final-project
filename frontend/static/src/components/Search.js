@@ -8,14 +8,28 @@ class Search extends Component {
       serach: "",
       plants: [],
     };
-
     this.fetchPlants = this.fetchPlants.bind(this);
     this.addPlant = this.addPlant.bind(this);
+    this.searchPlants = this.searchPlants.bind(this);
   }
 
   componentDidMount() {
     this.fetchPlants();
   }
+
+  handleInput(event) {
+    this.setState({[event.target.name]: event.target.value}, this.searchPlants);
+  }
+
+ async searchPlants() {
+   if(this.state.search.trim().length) {
+     const response = await fetch(`/api/v1/trefle/plants/search/?q=${this.state.searchPlants}`);
+     const data = await response.json();
+     this.setState({ plants: data.data });
+   } else {
+     this.fetchPlants()
+   }
+ }
 
   async fetchPlants() {
     const response = await fetch("/api/v1/trefle/plants/");
@@ -32,7 +46,6 @@ class Search extends Component {
       publication_year: plant.year,
       api_id: plant.id,
     };
-
     const options = {
       method: "POST",
       headers: {
@@ -41,33 +54,35 @@ class Search extends Component {
       },
       body: JSON.stringify(obj),
     };
-
     const response = await fetch("/api/v1/user/plants/add/", options);
     console.log(response);
   }
-
   render() {
     const plants = this.state.plants.map((plant) => (
-      <li key={plant.id}>
-        <p>{plant.common_name}</p>
-        <img src={plant.image_url} />
-        <button type="button" onClick={() => this.addPlant(plant)}>
-          Add to profile
-        </button>
-      </li>
+      <div className="col-3 px-2">
+        <div className="card mb-3">
+          <div className="plant-img_container"><img src={plant.image_url} class="card-img-top" alt={plant.common_name}/></div>
+          <div className="card-body">
+            <h5 className="card-title">{plant.common_name}</h5>
+            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <button type="button" className="btn btn-link" onClick={() => this.addPlant(plant)}>
+                Add to profile
+              </button>
+          </div>
+        </div>
+      </div>
     ));
     return (
       <>
         <div namespace="home_container">
           <div namespace="search_bar">
-          <h2>Search</h2>
-            <input type="text" className="searching" />
+          <h2 className="search-title">Search</h2>
+            <input type="text" className="searching" name="search" onChange={this.handleInput}/>
           </div>
-            <ul class="plant_list">{plants}</ul>
+            <div className="plant_list row px-4">{plants}</div>
         </div>
       </>
     );
   }
 }
-
 export default Search;

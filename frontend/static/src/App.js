@@ -85,7 +85,7 @@ class App extends Component {
   async handleLogOut(e) {
     e.preventDefault();
 
-    alert("logging out");
+    // alert("logging out");
 
     const options = {
       method: "POST",

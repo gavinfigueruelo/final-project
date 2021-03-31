@@ -16,4 +16,9 @@ class Plant(models.Model):
     #     return self.common_name[:50]
 
 class Note(models.Model):
-    pass
+    title = models.CharField(max_length=100, null=True)
+    entry = models.CharField(max_length=500, null=True)
+    upload = models.FileField(upload_to='profile/')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
+    # has to have a realationship to a plant and to a user

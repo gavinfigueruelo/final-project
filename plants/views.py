@@ -27,6 +27,15 @@ class PlantDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = [permissions.IsAdminUser | IsOwnerOrReadOnly,]
 
 
+@api_view(['GET'])
+@permission_classes((permissions.IsAuthenticatedOrReadOnly, ))
+def get_plants_by_name(request):
+    # import pdb; pdb.set_trace()
+    query = request.query_params.get('q') #set up query to search
+    response = requests.get(f"https://trefle.io/api/v1/plants/search?q={query}&token=WZpL4TR0LqPH72oQFuWqcSRahC5KmkpMtfxXfzerHIs")
+    return Response(response.json())
+
+
 # get initial plant list from trefle api
 @api_view(['GET'])
 @permission_classes((permissions.IsAuthenticatedOrReadOnly, ))
