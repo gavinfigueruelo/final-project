@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
 
     'rest_framework',
+    'corsheaders',
     'allauth.account',
     'allauth.socialaccount',
     'allauth',
@@ -66,6 +67,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -23,10 +23,10 @@ class CommunityPost extends Component {
     event.preventDefault();
 
     const message = {
-      text: this.state.text,
+      post: this.state.post,
     };
     console.log("message i sent", message);
-    fetch(`${endpoint}create/`, {
+    fetch(`${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,10 +44,10 @@ class CommunityPost extends Component {
         this.props.addMessages(data);
         console.log("Message sent!", data);
       })
-      .catch((error) => console.log("Error:", error))
+      .catch(error => console.log("Error:", error))
       .finally("I am always going to fire!");
-    this.setState({ post: "" });
-  }
+    this.setState({ post: "" })
+  };
 
   componentDidMount() {
     fetch(`${endpoint}`)
@@ -91,8 +91,8 @@ class CommunityPost extends Component {
               placeholder="type message here"
               required
             />
-            <input type="file" namespace="file_post" />
-            <button type="submit" onChange={this.handleSubmit}>
+            <input type="file" namespace="file_post" onChange={this.handleInput}/>
+            <button type="submit" onClick={this.handleSubmit}>
               Post!
             </button>
           </div>

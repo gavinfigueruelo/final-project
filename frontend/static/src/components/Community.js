@@ -8,8 +8,9 @@ class Community extends Component {
 render(){
   return (
     <div>
-      <CommunityPage/>
+      <h1> Welcome to the Plant Community!</h1>
       <CommunityPost/>
+      <CommunityPage/>
     </div>
   );
 }

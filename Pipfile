@@ -15,6 +15,7 @@ psycopg2-binary = "*"
 dj-database-url = "*"
 bootstrap-py = "*"
 requests = "~=2.25.1"
+django-cors-headers = "*"
 
 [dev-packages]
 

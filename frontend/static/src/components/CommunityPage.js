@@ -25,12 +25,10 @@ class CommunityPage extends Component {
 
 render(){
   return(
-    <div namespace="pagepost">
-      <h1> Welcome to the Plant Community!</h1>
+    <div className="pagepost">
       <div className="message-box">
       {this.state.chats.map(item => (
-        <div key={item.api_id}>
-        <h1>{item.title}</h1>
+        <div key={item.id}>
         <p>{item.post}</p>
         <img src={item.image_upload} alt="plant"/>
         <p></p>

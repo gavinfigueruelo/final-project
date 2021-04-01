@@ -6,8 +6,8 @@
 }
 
 html {
-  background-image: url('./images/palegreen.jpeg');
   /* background-size: 100%; */
+  background-color: #E0EEE0;
   background-position: center;
   background-position: top;
   height: auto;
@@ -94,7 +94,7 @@ login_outer input {
 /* /////////////////////////////////NAV BAR */
 .nav-bar li {
   display: inline;
-  background: #759B84;
+  background: #86C67C;
   max-width:1440px;
   text-align: center;
   max-height: 40px;
@@ -105,7 +105,7 @@ login_outer input {
 }
 
 ul.nav-bar {
-  background: #759B84;
+  background:#86C67C;
   max-width:1500px;
   text-align: center;
   list-style-type: none;
@@ -195,4 +195,31 @@ ul.plant_list {
   position: relative;
   text-align: center;
   font-size: 20px;
+}
+
+.card-columns {
+  column-count: 4;
+  position: relative;
+  top: 75px;
+  max-width: 1400px;
+  left: 20px;
+}
+/* ////////////////////////////////////COMMUNITY */
+
+.pagepost {
+  max-width: 1400px;
+  height: 600px;
+  background-color: white;
+  position: fixed;
+  overflow: scroll;
+}
+
+.message-box {
+
+
+}
+
+
+.profile_edit {
+  background-color: #bfdbc9;
 }
