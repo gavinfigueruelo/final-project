@@ -129,7 +129,7 @@ class App extends Component {
           <Route path="/community">
             <Community />
           </Route>
-          <Route path="/search">
+          <Route exact path="/">
             <Search />
           </Route>
         </Switch>

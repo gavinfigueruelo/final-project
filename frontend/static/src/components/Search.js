@@ -38,7 +38,7 @@ class Search extends Component {
   }
 
   async fetchPlants() {
-    const response = await fetch("/api/v1/plants/");
+    const response = await fetch("/api/v1/plants/?q=page");
     const data = await response.json();
     console.log("search", data);
     this.setState({ plants: data.data });

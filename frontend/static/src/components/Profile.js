@@ -74,7 +74,7 @@ class Profile extends Component {
   render() {
     return (
       <div className="profile_edit">
-        <h2>Your Profile</h2>
+
 
         {this.state.isEditing
           ?
@@ -111,11 +111,11 @@ class Profile extends Component {
       {!this.state.isEditing
         ?
         <>
-        <div>
+        <div className='profile-info'>
         {this.state.profile.map((item) => (
           <div key={item.id}>
             <h1> {item.username}</h1>
-            <img className='card-img-top' src={item.profile_picture} alt="profilepicture here" />
+            <img className='card-profile' src={item.profile_picture} alt="profilepicture here" />
             <p>{item.bio}</p>
           </div>
         ))}

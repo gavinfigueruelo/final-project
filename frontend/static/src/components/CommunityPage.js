@@ -28,10 +28,9 @@ render(){
     <div className="pagepost">
       <div className="message-box">
       {this.state.chats.map(item => (
-        <div key={item.id}>
+        <div className='card messages' key={item.id}>
         <p>{item.post}</p>
-        <img src={item.image_upload} alt="plant"/>
-        <p></p>
+        {item.image_upload && <img src={item.image_upload} alt="plant"  />}
         <p>{item.author}</p>
         </div>
       ))}

@@ -208,18 +208,55 @@ ul.plant_list {
 
 .pagepost {
   max-width: 1400px;
-  height: 600px;
+  height: 750px;
   background-color: white;
   position: fixed;
   overflow: scroll;
+  align: center;
 }
 
-.message-box {
+.com_post {
+  background-color: ;
+  border:
+}
 
+.container_post {
+  background-color: lightgrey;
+  border: 5px black;
+}
+
+.messages {
+  padding-bottom: 50px;
+  border: black solid 2px;
+  background-color: #f1f1f1;
+  margin-bottom: 15px;
+}
+
+.messages img{
+  max-width: 300px;
+}
+
+
+/* ///////////////////////////////////////// */
+
+.card-profile {
+  max-width: 120px;
+  height: 120px;
+  border-radius: 60px;
 
 }
 
+.plantprof {
+  background-color: lightgrey;
+  margin: 10px;
+
+}
+
+.profile-info {
+
+}
 
 .profile_edit {
   background-color: #bfdbc9;
+  border: grey solid 2px;
 }

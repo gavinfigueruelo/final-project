@@ -6,7 +6,7 @@ function Welcome(props) {
     <div className="header_nav">
       <ul className="nav-bar">
         <li className="nav-bar-right">
-          <NavLink to="/search">Home </NavLink>
+          <NavLink to="/">Home </NavLink>
         </li>
         <span>
           <li className="nav-bar-left">
@@ -26,7 +26,7 @@ function WelcomeBack(props) {
     <div className="header_nav">
       <ul className="nav-bar">
         <li className="nav-bar-right">
-          <NavLink to="/search/">Home </NavLink>
+          <NavLink to="/">Home </NavLink>
         </li>
         <li className="nav-bar-right">
           <NavLink to="/profile/">Profile </NavLink>{" "}

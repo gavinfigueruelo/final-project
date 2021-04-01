@@ -75,7 +75,7 @@ class CommunityPost extends Component {
 
   render() {
     return (
-      <div namespace="container_post">
+      <div className="container_post">
         <form className="form">
           <div className="com_post">
             <label htmlFor="community-post">
@@ -83,6 +83,7 @@ class CommunityPost extends Component {
             </label>
             <br />
             <input
+              rows='3'
               type="text"
               name="post"
               id="community-post"
@@ -92,7 +93,7 @@ class CommunityPost extends Component {
               required
             />
             <input type="file" namespace="file_post" onChange={this.handleInput}/>
-            <button type="submit" onClick={this.handleSubmit}>
+            <button className="btn btn-light" type="submit" onClick={this.handleSubmit}>
               Post!
             </button>
           </div>

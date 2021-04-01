@@ -2,6 +2,7 @@ import requests
 from rest_framework import generics
 from django.shortcuts import render
 from rest_framework.decorators import api_view
+from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.response import Response
 #to use generic views
 from .models import Profile
@@ -15,7 +16,7 @@ class ProfileListView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 
-class ProfileDetailView(generics.RetrieveUpdateAPIView):
+class ProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
@@ -27,7 +28,7 @@ class ProfileRetrieveView(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
-  # 
+  #
   # @api_view(['GET'])
   # def current_user(request):
   #   user = request.user
