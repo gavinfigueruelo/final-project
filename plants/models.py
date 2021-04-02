@@ -16,7 +16,6 @@ class Plant(models.Model):
         return self.common_name
 
 class Note(models.Model):
-    title = models.CharField(max_length=100, null=True)
     entry = models.CharField(max_length=500, null=True)
     upload = models.FileField(upload_to='profile/', null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
