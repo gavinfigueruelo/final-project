@@ -6,7 +6,7 @@ class PlantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Plant
-        fields = ('api_id', 'common_name', 'family', 'image_url', 'publication_year')
+        fields = '__all__'
 
 class NoteSerializer(serializers.ModelSerializer):
 

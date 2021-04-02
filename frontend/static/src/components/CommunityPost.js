@@ -79,7 +79,7 @@ class CommunityPost extends Component {
       <div className="container_post">
         <form className="form">
           <div className="com_post">
-            <label htmlFor="community-post">
+            <label className="post-info" htmlFor="community-post">
               Ask a Question, Share a Thought, or Post a Picture of Your Plant!
             </label>
             <br />

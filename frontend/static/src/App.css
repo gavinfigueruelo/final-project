@@ -223,8 +223,9 @@ ul.plant_list {
 }
 
 .com_post {
-  background-color: ;
-  border:
+  max-width: 440px;
+  margin: 3px;
+  border: black solid 3px;
 }
 
 .container_post {

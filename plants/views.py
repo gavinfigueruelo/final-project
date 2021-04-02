@@ -65,19 +65,19 @@ def get_plants(request):
 # create the plant if it doesn't exists and add user to plant's user's list (many-to-many relationship)
 @api_view(['POST'])
 def add_plant(request):
-
-    api_id = request.data['api_id']
-
-    try:
-        Plant.objects.get(api_id=api_id)
-        obj = Plant.objects.get(api_id=api_id)
-        obj.users.add(request.user)
-        serializer = PlantSerializer(obj)
+    request.data['user'] = request.user.id
+    # api_id = request.data['api_id']
+    #
+    # try:
+    #     Plant.objects.get(api_id=api_id)
+    #     obj = Plant.objects.get(api_id=api_id)
+    #     obj.users.add(request.user)
+    #     serializer = PlantSerializer(obj)
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+    # except Plant.DoesNotExist:
+    serializer = PlantSerializer(data=request.data)
+    if serializer.is_valid():
+        obj = serializer.save()
+        # obj.users.add(request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    except Plant.DoesNotExist:
-        serializer = PlantSerializer(data=request.data)
-        if serializer.is_valid():
-            obj = serializer.save()
-            obj.users.add(request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
