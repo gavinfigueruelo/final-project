@@ -18,9 +18,8 @@ class Plant(models.Model):
 class Note(models.Model):
     title = models.CharField(max_length=100, null=True)
     entry = models.CharField(max_length=500, null=True)
-    upload = models.FileField(upload_to='profile/')
+    upload = models.FileField(upload_to='profile/', null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
     # has to have a realationship to a plant and to a user
 
     def __str__(self):

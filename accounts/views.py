@@ -1,9 +1,9 @@
 import requests
-from rest_framework import generics
+from rest_framework import generics, status, permissions
 from django.shortcuts import render
-from rest_framework.decorators import api_view
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 #to use generic views
 from .models import Profile
 from .serializers import ProfileSerializer
@@ -28,10 +28,21 @@ class ProfileRetrieveView(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
-  #
-  # @api_view(['GET'])
-  # def current_user(request):
-  #   user = request.user
-  #   return Response({
-  #     'username' : user.username,
-  #   })
+    def get_object(self):
+        user = self.request.user
+        return user
+
+# @api_view(['POST'])
+# def update_user(request):
+#
+#     try:
+#         profile = Profile.objects.get(user=request.user)
+#         serializer = ProfileSerializer(obj)
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     except Profile.DoesNotExist:
+#         serializer = ProfileSerializer(data=request.data)
+#         if serializer.is_valid():
+#             obj = serializer.save()
+#             obj.users.add(request.user)
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

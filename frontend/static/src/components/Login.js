@@ -17,7 +17,7 @@ class Login extends Component{
   handleInput(event) {
     this.setState({[event.target.name]: event.target.value});
   }
-  
+
 
   clickLogin(){
   const login = this.state.clickLogin;

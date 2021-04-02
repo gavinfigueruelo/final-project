@@ -10,5 +10,5 @@ urlpatterns = [
     path('profiles/detail/', views.ProfileDetailView.as_view()),
     # path('profiles/user/plants/', views.PlantListAPIView.as_view()),
     path('profiles/<int:pk>/', views.ProfileRetrieveView.as_view()),
-
+    path('profiles/update/', views.ProfileDetailView.as_view()),
 ]

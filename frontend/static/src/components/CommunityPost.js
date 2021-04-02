@@ -9,6 +9,7 @@ class CommunityPost extends Component {
     this.state = {
       title: "",
       post: "",
+      image_upload:"",
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -83,7 +84,6 @@ class CommunityPost extends Component {
             </label>
             <br />
             <input
-              rows='3'
               type="text"
               name="post"
               id="community-post"

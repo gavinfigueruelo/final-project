@@ -34,7 +34,7 @@ class NoteDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 class NoteCreateAPIView(generics.ListCreateAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
-    # 
+    #
     # def perform_create(self, serializer):
     #     serializer.save(user=self.request.owner)
 
@@ -44,7 +44,7 @@ class NoteCreateAPIView(generics.ListCreateAPIView):
 def get_plants_by_name(request):
     # import pdb; pdb.set_trace()
     query = request.query_params.get('q') #set up query to search
-    response = requests.get(f"https://trefle.io/api/v1/plants/search?q={query}&token=WZpL4TR0LqPH72oQFuWqcSRahC5KmkpMtfxXfzerHIs")
+    response = requests.get(f"https://trefle.io/api/v1/plants/search?q={query}&{os.environ.get('TREFLE_TOKEN')}")
     return Response(response.json())
 
 
@@ -52,8 +52,14 @@ def get_plants_by_name(request):
 @api_view(['GET'])
 @permission_classes((permissions.IsAuthenticatedOrReadOnly, ))
 def get_plants(request):
-    response = requests.get(f"https://trefle.io/api/v1/plants?token={os.environ.get('TREFLE_TOKEN')}")
-    return Response(response.json())
+    query = request.query_params.get('q') #set up query to search
+    if query is not None:
+        response = requests.get(f"https://trefle.io/api/v1/plants?token={os.environ.get('TREFLE_TOKEN')}&{query}")
+        return Response(response.json())
+    else:
+        response = requests.get(f"https://trefle.io/api/v1/plants?token={os.environ.get('TREFLE_TOKEN')}")
+        return Response(response.json())
+
 
 
 # create the plant if it doesn't exists and add user to plant's user's list (many-to-many relationship)

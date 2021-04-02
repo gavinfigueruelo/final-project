@@ -40,7 +40,7 @@ html {
 .loginform {
   position: relative;
   max-width: 360px;
-  font-size: 40px;
+  /* font-size: 40px; */
   text-align: center;
   left: 500px;
   top: 200px;
@@ -62,29 +62,30 @@ login_outer input {
   text-align: center;
 }
 
-/* .username_input{
-  width: 40%;
+ .username_input{
+   width: 80%;
+  /* width: 40%;
   padding: 10px 18px;
   margin: 8px 0;
   box-sizing: border-box;
-  background-color: #F0FFF0;
+  background-color: #F0FFF0; */
 }
 
 .email_input{
-  width: 40%;
+  /* width: 40%;
   padding: 10px 18px;
   margin: 8px 0;
   box-sizing: border-box;
-  background-color: #F0FFF0;
+  background-color: #F0FFF0; */
 }
 
 .password_input {
-  width: 40%;
+  /* width: 40%;
   padding: 10px 18px;
   margin: 8px 0;
   box-sizing: border-box;
-  background-color: #F0FFF0;
-} */
+  background-color: #F0FFF0; */
+}
 
 .login_btn {
   background-color: #B6C5BE;
@@ -112,6 +113,8 @@ ul.nav-bar {
   padding: 15px;
   left: 0px;
   right: 0px;
+  position: fixed;
+  z-index: 20;
 
 }
 
@@ -204,14 +207,18 @@ ul.plant_list {
   max-width: 1400px;
   left: 20px;
 }
+
+.prev-btn {
+  position: relative;
+}
 /* ////////////////////////////////////COMMUNITY */
 
 .pagepost {
-  max-width: 1400px;
-  height: 750px;
-  background-color: white;
-  position: fixed;
-  overflow: scroll;
+  max-width: 1000px;
+  height: auto;
+  background-color: inherit;
+  /* position: fixed; */
+  /* overflow: scroll; */
   align: center;
 }
 
@@ -225,9 +232,13 @@ ul.plant_list {
   border: 5px black;
 }
 
+.message-box {
+  background-color: inherit;
+}
+
 .messages {
   padding-bottom: 50px;
-  border: black solid 2px;
+  border: #484D46	 solid 2px;
   background-color: #f1f1f1;
   margin-bottom: 15px;
 }
@@ -259,4 +270,8 @@ ul.plant_list {
 .profile_edit {
   background-color: #bfdbc9;
   border: grey solid 2px;
+}
+
+.user-title h1 {
+  text-align: center;
 }

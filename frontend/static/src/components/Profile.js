@@ -17,16 +17,12 @@ class Profile extends Component {
   }
 
   async componentDidMount() {
-    try {
-      const res = await fetch("/api/v1/profiles/");
+
+      const res = await fetch("/api/v1/profiles/detail/");
       const profile = await res.json();
       console.log('profile', profile)
-      this.setState({
-        profile,
-      });
-    } catch (e) {
-      console.log(e);
-    }
+      this.setState({...profile});
+
   }
 
   handleImage(event) {
@@ -52,23 +48,40 @@ class Profile extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    const user = this.state
     let formData = new FormData();
     formData.append("profile_picture", this.state.profile_picture);
     formData.append("bio", this.state.bio);
 
     const options = {
-      method: "POST",
+      method: "PUT",
       headers: {
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
       body: formData,
     };
 
-    const response = await fetch("/api/v1/profiles/", options);
+    const response = await fetch("/api/v1/profiles/update/", options);
     const data = await response.json().catch((error) => console.log(error));
-    console.log(data);
+    console.log('updated profile', data);
 
-    this.setState({ isEditing: !this.state.isEditing})
+    this.setState({ isEditing: !this.state.isEditing, bio: data.bio, profile_picture: data.profile_picture});
+    // const obj = {
+    //   profile_picture: user.profile_picture,
+    //   bio: user.bio,
+    // };
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "X-CSRFToken": Cookies.get("csrftoken"),
+    //   },
+    //   body: JSON.stringify(obj),
+    // };
+    // const response = await fetch("/api/v1/profiles/update/", options);
+    // console.log(response)
+    // window.location.reload();
+
   }
 
   render() {
@@ -112,15 +125,12 @@ class Profile extends Component {
         ?
         <>
         <div className='profile-info'>
-        {this.state.profile.map((item) => (
-          <div key={item.id}>
-            <h1> {item.username}</h1>
-            <img className='card-profile' src={item.profile_picture} alt="profilepicture here" />
-            <p>{item.bio}</p>
+          <div key={this.state.id}>
+            <h1> {this.state.username}</h1>
+            <img className='card-profile' src={this.state.profile_picture} alt="profilepicture here" />
+            <p>{this.state.bio}</p>
           </div>
-        ))}
         </div>
-
         <button className="btn btn-link" type="submit" onClick={() => this.setState({ isEditing: !this.state.isEditing})} >
           Edit
         </button>

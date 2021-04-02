@@ -6,12 +6,17 @@ class Search extends Component {
     super(props);
     this.state = {
       serach: "",
-      plants: [],
+      plants: {
+        data: [],
+        links: [],
+      },
     };
     this.fetchPlants = this.fetchPlants.bind(this);
     this.addPlant = this.addPlant.bind(this);
     this.searchPlants = this.searchPlants.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.handlePrev = this.handlePrev.bind(this);
+    this.handleNext = this.handleNext.bind(this);
   }
 
   componentDidMount() {
@@ -31,17 +36,50 @@ class Search extends Component {
         `/api/v1/plants/search/?q=${this.state.search}`
       );
       const data = await response.json();
-      this.setState({ plants: data.data });
+      this.setState({ plants: data });
     } else {
       this.fetchPlants();
     }
   }
 
   async fetchPlants() {
-    const response = await fetch("/api/v1/plants/?q=page");
+    const response = await fetch("/api/v1/plants");
     const data = await response.json();
     console.log("search", data);
-    this.setState({ plants: data.data });
+    this.setState({ plants: data });
+  }
+
+  async handleNext() {
+    // Return if there is no next page
+    const plants = this.state.plants
+    if (!plants.links.next) return
+
+    // Get next page number
+    const nextLink = this.state.plants.links.next;
+    const page = nextLink.split('?')[1]
+
+    // Make fetch call to api for page with query to plant end point
+    const response = await fetch(`/api/v1/plants?q=${page}`);
+    const data = await response.json();
+    console.log("search", data);
+    this.setState({ plants: data });
+  }
+
+  async handlePrev() {
+    // Return if there is no prev page
+    const plants = this.state.plants
+    if (!plants.links.prev) return
+
+    // Get next page number
+    const nextLink = this.state.plants.links.prev;
+    const page = nextLink.split('?')[1]
+
+    // Make fetch call to api for page with query to plant end point
+    const response = await fetch(`/api/v1/plants?q=${page}`);
+    const data = await response.json();
+    console.log("search", data);
+    this.setState({ plants: data });
+
   }
 
   async addPlant(plant) {
@@ -64,7 +102,7 @@ class Search extends Component {
     console.log(response);
   }
   render() {
-    const plants = this.state.plants.map((plant) => (
+    const plants = this.state.plants.data.map((plant) => (
       <div className="card" key={plant.id}>
         <div className="plant-img_container">
           <img
@@ -102,6 +140,11 @@ class Search extends Component {
             />
           </div>
           <div className="card-columns">{plants}</div>
+          <br/>
+          <br/>
+          <br/>
+          <button className="prev-btn btn btn-light" onClick={() => this.handlePrev()}>Prev</button> <br />
+          <button className="next-btn btn btn-light" onClick={() => this.handleNext()}>Next</button>
         </div>
       </>
     );
