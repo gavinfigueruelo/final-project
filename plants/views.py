@@ -6,7 +6,7 @@ from rest_framework import generics, status, permissions
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .serializers import PlantSerializer, NoteSerializer
+from .serializers import PlantSerializer, NoteSerializer, PlantDetailSerializer
 from .models import Plant, Note
 
 # User = get_user_model()
@@ -14,7 +14,7 @@ from .models import Plant, Note
 # Create your views here.
 
 class UserPlantListAPIView(generics.ListAPIView):
-    serializer_class = PlantSerializer
+    serializer_class = PlantDetailSerializer
     # permission_classes = [permissions.IsAdminUser | IsOwnerOrReadOnly,]
 
     def get_queryset(self):
@@ -23,7 +23,7 @@ class UserPlantListAPIView(generics.ListAPIView):
 
 class PlantDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Plant.objects.all()
-    serializer_class = PlantSerializer
+    serializer_class = PlantDetailSerializer
     # permission_classes = [permissions.IsAdminUser | IsOwnerOrReadOnly,]
 
 class NoteDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -34,9 +34,9 @@ class NoteDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 class NoteCreateAPIView(generics.ListCreateAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
-    #
-    # def perform_create(self, serializer):
-    #     serializer.save(user=self.request.owner)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 @api_view(['GET'])
@@ -44,7 +44,7 @@ class NoteCreateAPIView(generics.ListCreateAPIView):
 def get_plants_by_name(request):
     # import pdb; pdb.set_trace()
     query = request.query_params.get('q') #set up query to search
-    response = requests.get(f"https://trefle.io/api/v1/plants/search?q={query}&{os.environ.get('TREFLE_TOKEN')}")
+    response = requests.get(f"https://trefle.io/api/v1/plants/search?q={query}&token={os.environ.get('TREFLE_TOKEN')}")
     return Response(response.json())
 
 
@@ -52,13 +52,11 @@ def get_plants_by_name(request):
 @api_view(['GET'])
 @permission_classes((permissions.IsAuthenticatedOrReadOnly, ))
 def get_plants(request):
-    query = request.query_params.get('q') #set up query to search
-    if query is not None:
-        response = requests.get(f"https://trefle.io/api/v1/plants?token={os.environ.get('TREFLE_TOKEN')}&{query}")
-        return Response(response.json())
-    else:
-        response = requests.get(f"https://trefle.io/api/v1/plants?token={os.environ.get('TREFLE_TOKEN')}")
-        return Response(response.json())
+    page = request.query_params.get('page') #set up query to search
+
+    response = requests.get(f"https://trefle.io/api/v1/plants?token={os.environ.get('TREFLE_TOKEN')}&page={page}")
+    return Response(response.json())
+
 
 
 

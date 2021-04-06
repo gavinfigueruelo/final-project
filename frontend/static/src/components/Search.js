@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import Cookies from "js-cookie";
+import { withRouter} from "react-router";
+import * as QueryString from "query-string";
+import {NavLink} from 'react-router-dom';
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
       serach: "",
-      plants: {
-        data: [],
-        links: [],
-      },
+      plants: [],
+      page: "1",
     };
     this.fetchPlants = this.fetchPlants.bind(this);
     this.addPlant = this.addPlant.bind(this);
@@ -21,6 +22,18 @@ class Search extends Component {
 
   componentDidMount() {
     this.fetchPlants();
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.location.search !== prevProps.location.search) {
+      if(this.props.location.search.length) {
+        const params = QueryString.parse(this.props.location.search);
+        const page = params.page
+        this.setState({page}, this.fetchPlants);
+      } else {
+        this.setState({page: "1"}, this.fetchPlants);
+      }
+    }
   }
 
   handleInput(event) {
@@ -35,18 +48,25 @@ class Search extends Component {
       const response = await fetch(
         `/api/v1/plants/search/?q=${this.state.search}`
       );
-      const data = await response.json();
-      this.setState({ plants: data });
-    } else {
-      this.fetchPlants();
+
+      if (response.status === 200) {
+        const json = await response.json();
+        this.setState({ plants: json.data});
+      } else {
+         this.fetchPlants();
+      }
     }
+    //   const data = await response.json();
+    //   this.setState({ plants: data });
+    // } else {
+    //   this.fetchPlants();
+    // }
   }
 
   async fetchPlants() {
-    const response = await fetch("/api/v1/plants");
-    const data = await response.json();
-    console.log("search", data);
-    this.setState({ plants: data });
+    const response = await fetch(`/api/v1/plants/?page=${this.state.page}`);
+    const json = await response.json();
+    this.setState({ plants:  json.data});
   }
 
   async handleNext() {
@@ -101,8 +121,9 @@ class Search extends Component {
     const response = await fetch("/api/v1/user/plants/add/", options);
     console.log(response);
   }
+
   render() {
-    const plants = this.state.plants.data.map((plant) => (
+    const plants = this.state.plants.map((plant) => (
       <div className="card" key={plant.id}>
         <div className="plant-img_container">
           <img
@@ -136,18 +157,20 @@ class Search extends Component {
               type="text"
               className="searching"
               name="search"
+              value= {this.state.search}
               onChange={this.handleInput}
             />
           </div>
+          <div className="page-links">
+          <NavLink className={`nav-link ${this.state.page === "1" ? "disabled": "display"}`} to={`/?page=${Number(this.state.page) - 1}`}>Prev</NavLink>
+          <NavLink className={`nav-link ${this.state.page === "18879" ? "disabled": "display"}`} to={`/?page=${Number(this.state.page) + 1}`}>Next</NavLink>
+          </div>
           <div className="card-columns">{plants}</div>
-          <br/>
-          <br/>
-          <br/>
-          <button className="prev-btn btn btn-light" onClick={() => this.handlePrev()}>Prev</button> <br />
-          <button className="next-btn btn btn-light" onClick={() => this.handleNext()}>Next</button>
+          {/* <button className="prev-btn btn btn-light" onClick={() => this.handlePrev()}>Prev</button>
+           <button className="next-btn btn btn-light" onClick={() => this.handleNext()}>Next</button> */}
         </div>
       </>
     );
   }
 }
-export default Search;
+export default withRouter(Search);

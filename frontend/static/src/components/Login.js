@@ -40,9 +40,9 @@ render(){
   return(
     <div class='login_outer'>
     <form className="loginform" onSubmit={(e) => this.props.handleLogin(e, this.state)}>
-      <input type="text" name="username" value={this.state.username} placeholder="username" onChange={this.handleInput}/><br/>
-      <input type="email" name="email" value={this.state.email} placeholder="email" onChange={this.handleInput}/><br/>
-      <input type="password" name="password" value={this.state.password} placeholder="password" onChange={this.handleInput}/><br/>
+      <div className="form-outline mb-4"><input type="text" name="username" value={this.state.username} placeholder="username" onChange={this.handleInput}/></div><br/>
+      <div className="form-outline mb-4"><input type="email" name="email" value={this.state.email} placeholder="email" onChange={this.handleInput}/></div><br/>
+      <div className="form-outline mb-4"><input type="password" name="password" value={this.state.password} placeholder="password" onChange={this.handleInput}/></div><br/>
       <button className="btn" type="submit">Login</button>
     </form>
     </div>

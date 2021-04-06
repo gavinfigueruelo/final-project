@@ -5,8 +5,8 @@ function Welcome(props) {
   return (
     <div className="header_nav">
       <ul className="nav-bar">
-        <li className="nav-bar-right">
-          <NavLink to="/">Home </NavLink>
+        <li className="nav-bar-name">
+          <NavLink className="nav-link navbar-brand" to="/">Henry </NavLink>
         </li>
         <span>
           <li className="nav-bar-left">
@@ -25,8 +25,8 @@ function WelcomeBack(props) {
   return (
     <div className="header_nav">
       <ul className="nav-bar">
-        <li className="nav-bar-right">
-          <NavLink to="/">Home </NavLink>
+        <li className="nav-bar-name">
+          <NavLink to="/">Henry </NavLink>
         </li>
         <li className="nav-bar-right">
           <NavLink to="/profile/">Profile </NavLink>{" "}
@@ -36,9 +36,9 @@ function WelcomeBack(props) {
         </li>
 
         <button
-          className="reg-btn"
+          className="logout-btn"
           onClick={(e) => props.handleLogOut(e)}
-          type="submit"
+          type="button" class="btn btn-light"
         >
           LogOut
         </button>

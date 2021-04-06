@@ -17,7 +17,6 @@ html {
 
 /* /////////////////////////////////REGISTER */
 .reg_out{
-
   background-color: #7F9A65;
   max-width: 1440px;
   height: 100px;
@@ -35,56 +34,33 @@ html {
   top: 35px;
 }
 
+.logout-btn {
+  position: relative;
+  right:-400px;
+}
+
 /* /////////////////////////////////LOGIN */
 
-.loginform {
+ .loginform {
   position: relative;
-  max-width: 360px;
-  /* font-size: 40px; */
+  max-width: 560px;
   text-align: center;
-  left: 500px;
-  top: 200px;
   background-color: #78A489;
   border-radius: 15px;
   border: 15px;
 }
 
-.login_outer {
-  position: relative;
-  top: 100px;
-  border: 25px;
-  max-width: 1440px;
-  height: 500px;
-
-}
-
-login_outer input {
-  text-align: center;
-}
 
  .username_input{
    width: 80%;
-  /* width: 40%;
-  padding: 10px 18px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  background-color: #F0FFF0; */
 }
 
 .email_input{
-  /* width: 40%;
-  padding: 10px 18px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  background-color: #F0FFF0; */
+
 }
 
 .password_input {
-  /* width: 40%;
-  padding: 10px 18px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  background-color: #F0FFF0; */
+
 }
 
 .login_btn {
@@ -95,9 +71,7 @@ login_outer input {
 /* /////////////////////////////////NAV BAR */
 .nav-bar li {
   display: inline;
-  background: #86C67C;
   max-width:1440px;
-  text-align: center;
   max-height: 40px;
   font-size: 30px;
   font-family: "copperplate";
@@ -107,9 +81,7 @@ login_outer input {
 
 ul.nav-bar {
   background:#86C67C;
-  max-width:1500px;
-  text-align: center;
-  list-style-type: none;
+  max-width:1440px;
   padding: 15px;
   left: 0px;
   right: 0px;
@@ -120,9 +92,6 @@ ul.nav-bar {
 
 .header_nav {
   height: 100px;
-  position: relative;
-  left: 0px;
-  right: 0px;
 }
 
 .nav-bar-right a{
@@ -134,48 +103,23 @@ ul.nav-bar {
   text-decoration: none;
   color: black;
 }
+
+.nav-bar-name a {
+  text-decoration: none;
+  color: black;
+  position: relative;
+  /* left: -50px; */
+  font-size: 40px;
+}
+
+/* .nav-bar-name{
+  position: relative;
+  left: -55px;
+} */
+
+
 /* /////////////////////////////////SEARCH */
- /* .plant_list li img{
-  border: 4px solid lightgrey;
-  max-width: 30%;
-  height: auto;
-}
 
-.plant_list li{
-  border-radius: 10px;
-  border: 4px solid lightgrey;
-  padding: 10px;
-  margin: 15px;
-  max-width: 100%;
-  height:auto;
-  background-color:	#F8F8F8;
-  list-style: none;
-  text-align: center;
-  position: relative;
-  left:300px;
-  right: 300px;
-
-}
-
-ul.plant_list {
-  margin-top: 100px;
-  max-width: 800px;
-  left: 300px;
-  right: 300px;
-}
-
-
-.search_bar {
-  text-align: center;
-  position: relative;
-}
-
-.search_bar h2 {
-  text-align: center;
-  top: 120px;
-  font-size: 10px;
-}
-*/
 .searching {
   position: absolute;
   left: 650px;
@@ -208,9 +152,6 @@ ul.plant_list {
   left: 20px;
 }
 
-.prev-btn {
-  position: relative;
-}
 /* ////////////////////////////////////COMMUNITY */
 
 .pagepost {

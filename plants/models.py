@@ -20,8 +20,8 @@ class Note(models.Model):
     entry = models.CharField(max_length=500, null=True)
     upload = models.FileField(upload_to='notes/', null= True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    plant = models.ForeignKey(Plant, on_delete=models.CASCADE, null=True)
+    plant = models.ForeignKey(Plant, related_name="notes", on_delete=models.CASCADE, null=True)
     # has to have a realationship to a plant and to a user
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.entry[:50]
