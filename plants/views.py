@@ -13,13 +13,15 @@ from .models import Plant, Note
 
 # Create your views here.
 
-class UserPlantListAPIView(generics.ListAPIView):
+class UserPlantListAPIView(generics.ListCreateAPIView):
     serializer_class = PlantDetailSerializer
     # permission_classes = [permissions.IsAdminUser | IsOwnerOrReadOnly,]
 
     def get_queryset(self):
         return self.request.user.plant_set.all()
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class PlantDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Plant.objects.all()

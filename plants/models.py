@@ -23,5 +23,7 @@ class Note(models.Model):
     plant = models.ForeignKey(Plant, related_name="notes", on_delete=models.CASCADE, null=True)
     # has to have a realationship to a plant and to a user
 
-    # def __str__(self):
-    #     return self.entry[:50]
+    def __str__(self):
+        if self.entry is None:
+            return self.plant.common_name
+        return self.entry[:50]

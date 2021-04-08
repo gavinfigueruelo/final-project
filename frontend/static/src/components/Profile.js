@@ -1,19 +1,33 @@
 import React, { Component } from "react";
 import Cookies from "js-cookie";
 import { Redirect } from "react-router-dom";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
+import Form from 'react-bootstrap/Form';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isEditing: false,
-      profile_picture: "",
+      profile_picture: null,
+      profilePreview: '',
       bio: "",
       profile: [],
+      show: false,
+      common_name: '',
+      family: '',
+      publication_year: '',
+      image: null,
+      plantPreview: '',
+
     };
     this.handleImage = this.handleImage.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.addPlant = this.addPlant.bind(this);
   }
 
   async componentDidMount() {
@@ -26,14 +40,26 @@ class Profile extends Component {
   }
 
   handleImage(event) {
-    let file = event.target.files[0];
-    this.setState({ profile_picture: file });
+    if(event.target.name === 'profile-image') {
+      let file = event.target.files[0];
+      this.setState({ profile_picture: file });
 
-    let reader = new FileReader();
-    reader.onloadend = () => {
-      this.setState({ preview: reader.result });
-    };
-    reader.readAsDataURL(file);
+      let reader = new FileReader();
+      reader.onloadend = () => {
+        this.setState({ profilePreview: reader.result });
+      };
+      reader.readAsDataURL(file);
+    } else if(event.target.name === 'plant-image') {
+      let file = event.target.files[0];
+      this.setState({ image: file });
+
+      let reader = new FileReader();
+      reader.onloadend = () => {
+        this.setState({ plantPreview: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+
   }
 
   handleInput(event) {
@@ -84,6 +110,40 @@ class Profile extends Component {
 
   }
 
+  async addPlant() {
+    const formData = new FormData();
+
+    if(this.state.common_name.length !== 0) {
+      formData.append('common_name', this.state.common_name);
+    }
+    if(this.state.family.length !== 0) {
+      formData.append('family', this.state.family);
+    }
+    if(this.state.image !== null) {
+      formData.append('image', this.state.image);
+    }
+    if(this.state.publication_year.length !== 0) {
+      const publication_year = Number(this.state.publication_year);
+      formData.append('publication_year', publication_year);
+    }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': Cookies.get('csrftoken'),
+      },
+      body: formData,
+    };
+
+    const response = await fetch('/api/v1/user/plants/', options);
+    if(response.status === 201) {
+
+      const json = await response.json();
+      this.props.addPlant(json);
+      this.setState({common_name: '', family: '', image: null, publication_year: '', show: false});
+    }
+  }
+
   render() {
     return (
       <div className="profile_edit">
@@ -97,7 +157,7 @@ class Profile extends Component {
                 className="form"
                 onChange={this.handleImage}
                 type="file"
-                name="profile_picture"
+                name="profile-image"
                 onKeyUp={(event) => this.handleEdit(event)}
               />
 
@@ -135,6 +195,51 @@ class Profile extends Component {
             <button className="btn btn-link" type="submit" onClick={() => this.setState({ isEditing: !this.state.isEditing})} >
             Edit
             </button>
+            <button className="btn btn-link" type="submit" onClick={() => this.setState({ show: true})} >
+            Add Plant
+            </button>
+
+
+            <Modal show={this.state.show} onHide={() => this.setState({show: false})}>
+              <Modal.Header closeButton>
+                <Modal.Title>Add plant below</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <InputGroup className="mb-3">
+                  <FormControl
+                    name="common_name"
+                    onChange={this.handleInput}
+                    value={this.state.common_name}
+                  />
+                </InputGroup>
+                <InputGroup className="mb-3">
+                  <FormControl
+                    name="family"
+                    onChange={this.handleInput}
+                    value={this.state.family}
+                  />
+                </InputGroup>
+                <InputGroup className="mb-3">
+                  <FormControl
+                    name="publication_year"
+                    onChange={this.handleInput}
+                    value={this.state.publiction_year}
+                  />
+                </InputGroup>
+                <InputGroup className="mb-3">
+                  {this.state.image && <img src={this.state.plantPreview} />}
+                 <Form.File name="plant-image" id="exampleFormControlFile1" label="Example file input" onChange={this.handleImage}/>
+                </InputGroup>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="primary" onClick={this.addPlant}>
+                  Add plant!
+                </Button>
+                <Button variant="secondary" onClick={() => this.setState({show: false})}>
+                  Cancel
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </div>
           </div>
           </div>

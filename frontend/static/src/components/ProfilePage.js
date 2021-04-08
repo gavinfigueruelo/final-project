@@ -14,23 +14,25 @@ class Note extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      entry: "",
-      upload: null
+      entry: this.props.note.entry,
+      upload: null,
+      isEditing: false,
     }
     this.editNote = this.editNote.bind(this);
+    this.handleInput = this.handleInput.bind(this);
     // this.removeNote = this.removeNote.bind(this);
 }
 
 editNote(note){
   const entry =  [...this.state.entry]
-  const upload = [...this.state.upload]
-  this.setState({ entry })
+  this.setState({ entry})
+
   fetch(`${endpoint}edit/`, {
         method: 'PUT',
         headers: {
           'X-CSRFToken' : Cookies.get('csrftoken'),
         },
-        body: entry, upload
+        body: note
       })
         .then(response => {
         if(!response.ok){
@@ -43,34 +45,36 @@ editNote(note){
       .finally('I am always going to fire!');
   };
 
-  // removeNote(chat){
-  //   const chats = [...this.state.chats];
-  //   notes.splice(index, 1);
-  //   this.setState({ chats });
-  //   fetch(`${endpoint}remove/${chat.id}`, {//type these out line by line some need more than others
-  //         method: 'DELETE',
-  //         headers: {
-  //           'X-CSRFToken' : Cookies.get('csrftoken'),
-  //         },
-  //       })
-  //         .then(response => {
-  //         if(!response.ok){
-  //           throw new Error ('Bad Post request');
-  //         }
-  //         })
-  //       .catch(error => console.log('Error:', error))
-  //       .finally('I am always going to fire!');
-  //   };
+  handleInput(event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
 
-
-
+  async saveNote
 
   render() {
     return(
       <>
-      <div>
-      {this.props.note.entry}
-      </div>
+      {this.state.isEditing
+        ?
+        <input type="text" name="entry" value={this.state.entry} onChange={this.handleInput}/>
+        :
+        <>
+          {this.props.note.entry && <p>{this.props.note.entry}</p>}
+          {this.props.note.upload && <img src={this.props.note.upload} />}
+        </>
+      }
+
+      {this.state.isEditing
+
+        ?
+          <Button variant="secondary" onClick={this.editNote}>save</Button>
+        :
+          <Button variant="secondary" onClick={() => this.setState({isEditing: true})}>edit</Button>
+      }
+
+
+      <Button variant="danger" onClick={() => this.props.removeNote(this.props.note.id)}>delete</Button>
+
       </>
     )
   }
@@ -85,29 +89,71 @@ class Plant extends Component {
       upload: null,
       preview: "",
       showNotes: false,
+      id: this.props.plant.id,
+      common_name: this.props.plant.common_name,
+      image_url: this.props.plant.image_url,
+      image: this.props.plant.image,
+      family: this.props.plant.family,
+      publication_year: this.props.plant.publication_year,
+      notes: this.props.plant.notes || [],
     }
 
     this.handleInput = this.handleInput.bind(this);
     this.handleImage = this.handleImage.bind(this);
-    this.handleSave = this.handleSave.bind(this);
+    this.addNote = this.addNote.bind(this);
+    this.removeNote = this.removeNote.bind(this);
   }
 
   handleInput(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSave() {
+  async addNote() {
     const formData= new FormData();
     // console.log(this.props.plant)
-    formData.append("plant", this.props.plant.id );
+    formData.append("plant", this.state.id );
     if(this.state.entry.length){
       formData.append("entry", this.state.entry );
     }
     if(this.state.upload){
-      formData.append("upload", this.state.uplaod );
+      formData.append("upload", this.state.upload );
     }
-    this.props.saveNote(formData);
-    this.setState({show: false, entry: "", upload: null, preview: ""})
+
+    const options = {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": Cookies.get("csrftoken"),
+        },
+        body: formData,
+      }
+    const response = await fetch(`/api/v1/user/plants/note/`, options);
+    if(response.status === 201) {
+      const data = await response.json().catch((error) => console.log(error));
+      const notes = [...this.state.notes];
+      notes.push(data);
+      this.setState({show: false, entry: "", upload: null, preview: "", notes});
+    }
+  }
+
+  async removeNote(id) {
+
+    // user/plants/note/<int:pk>/
+
+
+    const options = {
+        method: "DELETE",
+        headers: {
+          "X-CSRFToken": Cookies.get("csrftoken"),
+        },
+      }
+    const response = await fetch(`/api/v1/user/plants/note/${id}/`, options);
+
+    if(response.status === 204) {
+      const notes = [...this.state.notes];
+      const index = notes.findIndex(note => note.id === id);
+      notes.splice(index, 1);
+      this.setState({show: false, entry: "", upload: null, preview: "", notes});
+    }
   }
 
   handleImage(event) {
@@ -121,20 +167,19 @@ class Plant extends Component {
   }
 
   render() {
-    const notes = this.props.plant.notes.map(note => <Note note={note}/>);
+    const notes = this.state.notes.map(note => <Note key={note.id} note={note} removeNote={this.removeNote}/>);
     return(
       <>
-      <div className='card plantprof' key={this.props.plant.id}>
-        <img className='card-img-top' src={this.props.plant.image_url} alt="plant" />
-        <h1 className="user-title">{this.props.plant.common_name}</h1>
-        <p>{this.props.plant.family}</p>
-        <p>{this.props.plant.publication_year}</p>
+      <div className='card plantprof' key={this.state.id}>
+        {this.state.image && <img className='card-img-top' src={this.state.image} alt="plant" />}
+        {!this.state.image && this.state.image_url && <img className='card-img-top' src={this.state.image_url} alt="plant" />}
+        <h1 className="user-title">{this.state.common_name}</h1>
+        <p>{this.state.family}</p>
+        <p>{this.state.publication_year}</p>
         <button className="btn btn-light note-btn" onClick={() => this.setState({show: true})}>Add Note</button>
-        <button className="btn btn-light note-btn" onClick={() => this.setState({showNotes: true})}>Show Notes</button>
+        <button className="btn btn-secondary note-btn" onClick={() => this.setState({showNotes: true})}>Show Notes</button>
+        <button className="btn btn-secondary note-btn" onClick={() => this.props.removePlant(this.state.id)}>Remove Plant</button>
       </div>
-
-
-
 
       <Modal show={this.state.show} onHide={() => this.setState({show: false})}>
         <Modal.Header closeButton>
@@ -156,7 +201,7 @@ class Plant extends Component {
           </InputGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={this.handleSave}>
+          <Button variant="primary" onClick={this.addNote}>
             Save Note!
           </Button>
           <Button variant="secondary" onClick={() => this.setState({show: false})}>
@@ -167,15 +212,15 @@ class Plant extends Component {
 
       <Modal show={this.state.showNotes} onHide={() => this.setState({showNotes: false})}>
       <Modal.Header closeButton>
-        <Modal.Title>My Notes</Modal.Title>
+        <Modal.Title>{this.state.common_name}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>{notes}</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={this.editNote}>edit</Button>
-        <Button variant="primary">Save</Button>
-        <Button variant="danger">X</Button>
+        <Button variant="secondary" onClick={() => this.setState({showNotes: false})}>
+          Close
+        </Button>
       </Modal.Footer>
 
       </Modal>
@@ -191,38 +236,44 @@ class ProfilePage extends Component {
     super(props);
     this.state = {
       plants: [],
-      notes: [],
     };
     this.fetchPlants = this.fetchPlants.bind(this);
     this.fetchNotes = this.fetchNotes.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
-    this.saveNote = this.saveNote.bind(this);
-
+    this.addPlant = this.addPlant.bind(this);
+    this.removePlant = this.removePlant.bind(this);
   }
 
   handleInput(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  async saveNote(note) {
-    const options = {
-      method: "POST",
-      headers: {
-        "X-CSRFToken": Cookies.get("csrftoken"),
-      },
-      body: note,
-      }
-      const response = await fetch(`/api/v1/user/plants/note/`, options);
-      if(response.status === 201) {
-        const data = await response.json().catch((error) => console.log(error));
-    }
-
-  }
-
   async componentDidMount() {
     this.fetchPlants();
     this.fetchNotes();
+  }
+
+  async addPlant(plant) {
+    console.log('plant', plant);
+    const plants = [...this.state.plants];
+    plants.push(plant);
+    this.setState({plants});
+  }
+
+  async removePlant(id) {
+    const options = {
+        method: "DELETE",
+        headers: {
+          "X-CSRFToken": Cookies.get("csrftoken"),
+        },
+      }
+    const response = await fetch(`/api/v1/user/plants/${id}/`, options);
+    if(response.status === 204) {
+      const plants = [...this.state.plants];
+      const index = plants.findIndex(plants => plants.id === id);
+      plants.splice(index, 1);
+      this.setState({show: false, entry: "", upload: null, preview: "", plants});
+    }
   }
 
   async fetchPlants() {
@@ -236,44 +287,6 @@ class ProfilePage extends Component {
     } catch (e) {
       console.log(e);
     }
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    const note = {
-      entry: this.state.entry,
-    };
-    console.log("message i sent", note);
-    fetch(`${endpoint}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": Cookies.get("csrftoken"),
-      },
-      body: JSON.stringify(note),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Bad Post request");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        this.props.addNotes(data);
-        console.log("Message sent!", data);
-      })
-      .catch(error => console.log("Error:", error))
-      .finally("I am always going to fire!");
-    this.setState({ entry: "" })
-  };
-
-
-  addNotes(note) {
-    const notes = [...this.state.notes];
-    console.log("journaling", note);
-    notes.push(note);
-    this.setState({ notes });
   }
 
   async fetchNotes() {
@@ -292,23 +305,15 @@ class ProfilePage extends Component {
   render() {
     return (
       <div className="profile_container">
-        <Profile /><br/>
+        <Profile addPlant={this.addPlant}/><br/>
         <div className='profile-card row px-4'>
+
         <div className='col-3 px-2' >
           {this.state.plants.map((plant) => (
-            <Plant saveNote={this.saveNote} editNote={this.editNote} plant={plant}/>
+            <Plant key={plant.id} plant={plant} addPlant={this.addPlant} removePlant={this.removePlant}/>
           ))}
           </div>
         </div>
-      {/*  <div className='col-3 px-2' >
-          {this.state.notes.map((item) => (
-            <div className='card' key={item.plant}>
-              <h1 className="card-title">{item.title}</h1>
-              <p>{item.entry}</p>
-              <img className='card-img-top' src={item.upload} alt="plant" />
-            </div>
-          ))}
-          </div> */}
       </div>
     );
   }
