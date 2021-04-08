@@ -207,22 +207,7 @@ ul.nav-bar {
 .main-card {
   width: auto;
 }
-/*
-.plantprof {
-  background-color: lightgrey;
-  margin: 10px;
 
+.profile_container{
+column-count: 4;
 }
-
-.profile-info {
-
-}
-
-.profile_edit {
-  background-color: #bfdbc9;
-  border: grey solid 2px;
-}
-
-.user-title h1 {
-  text-align: center;
-} */

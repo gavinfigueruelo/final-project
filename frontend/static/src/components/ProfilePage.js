@@ -8,7 +8,7 @@ import Profile from "./Profile";
 import Cookies from "js-cookie";
 
 
-const endpoint = "/api/v1/user/plants/note/";
+
 
 class Note extends Component {
   constructor(props) {
@@ -23,33 +23,29 @@ class Note extends Component {
     // this.removeNote = this.removeNote.bind(this);
 }
 
-editNote(note){
-  const entry =  [...this.state.entry]
-  this.setState({ entry})
+async editNote(){
 
-  fetch(`${endpoint}edit/`, {
-        method: 'PUT',
-        headers: {
-          'X-CSRFToken' : Cookies.get('csrftoken'),
-        },
-        body: note
-      })
-        .then(response => {
-        if(!response.ok){
-          throw new Error ('Bad Post request');
-        }
-        return response.json()
-        })
-      .then(data => console.log('Success. Note Updated!'))
-      .catch(error => console.log('Error:', error))
-      .finally('I am always going to fire!');
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken' : Cookies.get('csrftoken'),
+    },
+    body: JSON.stringify({entry: this.state.entry}),
   };
+
+  const response = await fetch(`/api/v1/user/plants/note/${this.props.note.id}/`, options);
+  console.log(response);
+  if(response.status) {
+    const json = await response.json();
+    this.setState({isEditing: false});
+  }
+}
 
   handleInput(event) {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  async saveNote
 
   render() {
     return(
@@ -59,7 +55,7 @@ editNote(note){
         <input type="text" name="entry" value={this.state.entry} onChange={this.handleInput}/>
         :
         <>
-          {this.props.note.entry && <p>{this.props.note.entry}</p>}
+          {this.state.entry && <p>{this.state.entry}</p>}
           {this.props.note.upload && <img src={this.props.note.upload} />}
         </>
       }
@@ -304,16 +300,11 @@ class ProfilePage extends Component {
 
   render() {
     return (
-      <div className="profile_container">
-        <Profile addPlant={this.addPlant}/><br/>
-        <div className='profile-card row px-4'>
-
-        <div className='col-3 px-2' >
-          {this.state.plants.map((plant) => (
-            <Plant key={plant.id} plant={plant} addPlant={this.addPlant} removePlant={this.removePlant}/>
-          ))}
-          </div>
-        </div>
+      <div className="profile_container card-columns p-4">
+        <Profile addPlant={this.addPlant}/>
+        {this.state.plants.map((plant) => (
+          <Plant key={plant.id} plant={plant} addPlant={this.addPlant} removePlant={this.removePlant}/>
+        ))}
       </div>
     );
   }

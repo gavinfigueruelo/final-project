@@ -146,7 +146,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className="profile_edit">
+      <div className="profile_edit card">
 
 
         {this.state.isEditing
@@ -184,7 +184,7 @@ class Profile extends Component {
       {!this.state.isEditing
         ?
         <>
-        <div className="card-columns prof-col">
+        <div className="prof-col">
         <div className="card text-center" key={this.state.id}>
           <div className="card-img-top">
             <img className='card-profile' src={this.state.profile_picture} alt="profilepicture here" />
