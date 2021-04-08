@@ -25,6 +25,29 @@ class CommunityPage extends Component {
 
 render(){
   return(
+    <>
+    {this.state.chats.map(item => (
+    <div className="card-columns">
+    <div className="card text-center" key={this.state.id}>
+      <div className="card-img-top">
+        {item.image_upload && <img src={item.image_upload} alt="plant"  />}
+      </div>
+      <div className="card-body d-flex flex-column">
+        <h1 className="card-title">{item.author}</h1>
+        <p>{item.post}</p>
+        <button className="btn btn-link" type="submit" onClick={() => this.setState({ isEditing: !this.state.isEditing})} >
+        DELETE
+        </button>
+      </div>
+      </div>
+      </div>
+        ))}
+    </>
+
+
+
+
+      /*
     <div className="pagepost">
       <div className="message-box">
       {this.state.chats.map(item => (
@@ -35,7 +58,7 @@ render(){
         </div>
       ))}
       </div>
-    </div>
+    </div>*/
   )
 }
 }

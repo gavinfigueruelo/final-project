@@ -133,14 +133,14 @@ class Search extends Component {
             onError={e => e.target.style.display='none'}
           />
         </div>
-        <div className="card-body">
+        <div className="card-body d-flex flex-column">
           <h5 className="card-title">{plant.common_name}</h5>
           <p className="card-text">
             {plant.family_common_name}
           </p>
           <button
             type="button"
-            className="btn btn-link"
+            className="btn btn-link ml-auto"
             onClick={() => this.addPlant(plant)}
           >
             Add to profile
@@ -150,22 +150,24 @@ class Search extends Component {
     ));
     return (
       <>
-        <div className="home_container">
-          <div className="search_bar">
-            <h2 className="search-title">Search</h2>
+        <div className="p-4">
+          <div className="search_bar row d-flex mb-4 position-relative">
+            {/*<h2 className="search-title">Search</h2>*/}
             <input
               type="text"
-              className="searching"
+              className="searching form-control mr-sm-2 ml-3 position-absolute"
               name="search"
               value= {this.state.search}
               onChange={this.handleInput}
+              placeholder="Search"
             />
+
+            <div className="d-flex ml-auto">
+              <NavLink className={`nav-link ${this.state.page === "1" ? "disabled": "display"}`} to={`/?page=${Number(this.state.page) - 1}`}>Prev</NavLink>
+              <NavLink className={`nav-link ${this.state.page === "18879" ? "disabled": "display"}`} to={`/?page=${Number(this.state.page) + 1}`}>Next</NavLink>
+            </div>
           </div>
-          <div className="page-links">
-          <NavLink className={`nav-link ${this.state.page === "1" ? "disabled": "display"}`} to={`/?page=${Number(this.state.page) - 1}`}>Prev</NavLink>
-          <NavLink className={`nav-link ${this.state.page === "18879" ? "disabled": "display"}`} to={`/?page=${Number(this.state.page) + 1}`}>Next</NavLink>
-          </div>
-          <div className="card-columns">{plants}</div>
+          <div className="card-columns plant-col">{plants}</div>
           {/* <button className="prev-btn btn btn-light" onClick={() => this.handlePrev()}>Prev</button>
            <button className="next-btn btn btn-light" onClick={() => this.handleNext()}>Next</button> */}
         </div>

@@ -19,4 +19,4 @@ class PlantDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Plant
-        fields = ('common_name', 'family', 'image', 'image_url', 'publication_year', 'api_id', 'user', 'notes')
+        fields = ('id', 'common_name', 'family', 'image', 'image_url', 'publication_year', 'api_id', 'user', 'notes')

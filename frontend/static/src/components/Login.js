@@ -39,11 +39,20 @@ clickRegister(){
 render(){
   return(
     <div class='login_outer'>
-    <form className="loginform" onSubmit={(e) => this.props.handleLogin(e, this.state)}>
-      <div className="form-outline mb-4"><input type="text" name="username" value={this.state.username} placeholder="username" onChange={this.handleInput}/></div><br/>
-      <div className="form-outline mb-4"><input type="email" name="email" value={this.state.email} placeholder="email" onChange={this.handleInput}/></div><br/>
-      <div className="form-outline mb-4"><input type="password" name="password" value={this.state.password} placeholder="password" onChange={this.handleInput}/></div><br/>
-      <button className="btn" type="submit">Login</button>
+    <form className="loginform mt-4 py-5" onSubmit={(e) => this.props.handleLogin(e, this.state)}>
+      <div className="form-group">
+        <label className="login-label" htmlFor="username-login">Username</label>
+        <input name="username" type="text" id="username-login" className="form-control login-ctrl" value={this.state.username} placeholder="username" onChange={this.handleInput}/>
+      </div>
+      <div className="form-group">
+        <label className="login-label" htmlFor="email-login">Email address</label>
+        <input name="email" type="email" id="email-login" className="form-control login-ctrl" value={this.state.email} placeholder="email" onChange={this.handleInput}/>
+      </div>
+      <div className="form-group">
+        <label className="login-label" htmlFor="password-login">Password</label>
+        <input name="password" type="password" id="password-login" className="form-control login-ctrl" value={this.state.password} placeholder="password" onChange={this.handleInput}/>
+      </div>
+      <button className="btn btn-light login-btn" type="submit">Login</button>
     </form>
     </div>
   );

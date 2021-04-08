@@ -124,16 +124,20 @@ class Profile extends Component {
       {!this.state.isEditing
         ?
         <>
-        <div className='profile-info'>
-          <div key={this.state.id}>
-            <h1> {this.state.username}</h1>
+        <div className="card-columns prof-col">
+        <div className="card text-center" key={this.state.id}>
+          <div className="card-img-top">
             <img className='card-profile' src={this.state.profile_picture} alt="profilepicture here" />
-            <p>{this.state.bio}</p>
           </div>
-        </div>
-        <button className="btn btn-link" type="submit" onClick={() => this.setState({ isEditing: !this.state.isEditing})} >
-          Edit
-        </button>
+          <div className="card-body d-flex flex-column">
+            <h1 className="card-title"> {this.state.username}</h1>
+            <p>{this.state.bio}</p>
+            <button className="btn btn-link" type="submit" onClick={() => this.setState({ isEditing: !this.state.isEditing})} >
+            Edit
+            </button>
+          </div>
+          </div>
+          </div>
         </>
         :
         null
