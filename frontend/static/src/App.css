@@ -1,13 +1,13 @@
  body {
   max-height:900px;
   max-width: 1440px;
-  /* background-image: url('./images/palegreen.jpeg'); */
+  background-image: url('./images/leafprint.jpeg');
   background-color: inherit;
 }
 
 html {
   /* background-size: 100%; */
-  background-color: #E0EEE0;
+  /* background-color: #E0EEE0; */
   background-position: center;
   background-position: top;
   height: auto;
@@ -100,19 +100,38 @@ ul.nav-bar {
 .nav-bar-right a{
   text-decoration: none;
   color: black;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.nav-bar-right a:hover {
+  background-color: #CCFFCC		;
 }
 
 .nav-bar-left a{
   text-decoration: none;
   color: black;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.nav-bar-left a:hover {
+  background-color: #CCFFCC		;
 }
 
 .nav-bar-name a {
   text-decoration: none;
   color: black;
   position: relative;
+  width: 50px;
   /* left: -50px; */
   font-size: 40px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.nav-bar-name a:hover {
+  background-color: #CCFFCC		;
 }
 
 .logout-btn{
@@ -159,44 +178,129 @@ ul.nav-bar {
 }
 
 /* ////////////////////////////////////COMMUNITY */
-/*
-.pagepost {
-  max-width: 1000px;
-  height: auto;
-  background-color: inherit;
-  align: center;
+.welcome {
+  text-align: center;
 }
 
-.com_post {
-  max-width: 440px;
-  margin: 3px;
-  border: black solid 3px;
+@media(max-width: 768px) {
+  .container_post {
+    width: 90%;
+    display: flex;
+  }
 }
 
 .container_post {
-  background-color: lightgrey;
-  border: 5px black;
+  position: relative;
+  left: 370px;
+  background-color: #BCED91;
+  border: 7px solid white;
+  border-style: double;
+  max-width: 700px;
+  border-radius: 10px;
 }
 
-.message-box {
-  background-color: inherit;
+.post-info {
+  text-align: center;
+  width: -webkit-fill-available;
 }
 
-.messages {
-  padding-bottom: 50px;
-  border: #484D46	 solid 2px;
-  background-color: #f1f1f1;
-  margin-bottom: 15px;
+.message-input {
+  position: relative;
+  width: 450px;
 }
 
-.messages img{
-  max-width: 300px;
-} */
+.file_post {
+  position: relative;
+  width: 450px;
+}
 
+.file_post::-webkit-file-upload-button {
+  visibility: hidden;
+}
 
-/* ///////////////////////////////////////// */
+.file_post::before {
+  content: 'Select a photo file';
+  display: inline-block;
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+  background-color: white;
+}
 
-.prof-col {
+.file_post:hover::before {
+  border-color: black;
+}
+
+.file_post:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.post-btn {
+  position: relative;
+  padding: 20px;
+}
+
+.form_post {
+  text-align: center;
+}
+
+.community-card {
+  width: 36rem;
+  margin: auto;
+  border: 8px solid #BCED91;
+  border-style: double;
+  border-radius: 10px;
+}
+
+@media(max-width: 768px) {
+  .community-card {
+    width: 90%;
+  }
+}
+
+.text-center {
+  padding-top: 20px;
+}
+
+.top-pic {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 236px;
+  margin: 0 auto;
+}
+
+.card-profile {
+  width: 100%;
+  height:auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+
+.community_picture_post {
+  border-radius: 3px;
+}
+
+/* ///////////////////////////////////////// PROFILE*/
+
+.note-buttons {
+  float: right;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+.note-btn {
+margin-left: 4px;
 
 }
 
@@ -210,4 +314,39 @@ ul.nav-bar {
 
 .profile_container{
 column-count: 4;
+}
+
+.prof-col {
+  background-color: #86C67C;
+
+}
+
+.edit-prof-btn {
+
+}
+
+.add_plant_btn {
+  padding-right: 5px;
+}
+
+.profile_picture_edit {
+  text-align: center;
+}
+
+.form-bio {
+  width: 315px;
+  text-align: center;
+
+}
+
+.bio_edit_view {
+  position: relative;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+}
+
+.plantprof {
+  border: 7px solid #86C67C;
+  
 }

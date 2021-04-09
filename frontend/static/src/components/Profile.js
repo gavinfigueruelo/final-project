@@ -152,19 +152,19 @@ class Profile extends Component {
         {this.state.isEditing
           ?
           <>
-            <div>
+            <div className="card edit-view">
               <input
-                className="form"
+                className="form_edit_profile"
                 onChange={this.handleImage}
                 type="file"
                 name="profile-image"
                 onKeyUp={(event) => this.handleEdit(event)}
               />
-
-              <p className="profile_picture_edit">profile picture</p>
+                {this.state.profile_picture && <img src={this.state.profilePreview} />}
+              <p className="profile_picture_edit">Upload A Profile Picture</p>
             </div>
 
-            <div>
+            <div className="bio_edit_view">
                 <input
                 className="form-bio"
                 onChange={this.handleInput}
@@ -185,20 +185,21 @@ class Profile extends Component {
         ?
         <>
         <div className="prof-col">
-        <div className="card text-center" key={this.state.id}>
-          <div className="card-img-top">
+        <div className="text-center" key={this.state.id}>
+          <div className="card-img-top top-pic">
             <img className='card-profile' src={this.state.profile_picture} alt="profilepicture here" />
           </div>
           <div className="card-body d-flex flex-column">
             <h1 className="card-title"> {this.state.username}</h1>
             <p>{this.state.bio}</p>
-            <button className="btn btn-link" type="submit" onClick={() => this.setState({ isEditing: !this.state.isEditing})} >
+            <div className="profile-btns">
+            <button className="btn btn-light edit-prof-btn" type="submit" onClick={() => this.setState({ isEditing: !this.state.isEditing})} >
             Edit
             </button>
-            <button className="btn btn-link" type="submit" onClick={() => this.setState({ show: true})} >
+            <button className="btn btn-light add_plant_btn" type="submit" onClick={() => this.setState({ show: true})} >
             Add Plant
             </button>
-
+          </div>
 
             <Modal show={this.state.show} onHide={() => this.setState({show: false})}>
               <Modal.Header closeButton>
@@ -207,6 +208,7 @@ class Profile extends Component {
               <Modal.Body>
                 <InputGroup className="mb-3">
                   <FormControl
+                    placeholder="Common Name"
                     name="common_name"
                     onChange={this.handleInput}
                     value={this.state.common_name}
@@ -214,6 +216,7 @@ class Profile extends Component {
                 </InputGroup>
                 <InputGroup className="mb-3">
                   <FormControl
+                    placeholder="Family"
                     name="family"
                     onChange={this.handleInput}
                     value={this.state.family}
@@ -221,13 +224,14 @@ class Profile extends Component {
                 </InputGroup>
                 <InputGroup className="mb-3">
                   <FormControl
+                    placeholder="Publication Year"
                     name="publication_year"
                     onChange={this.handleInput}
                     value={this.state.publiction_year}
                   />
                 </InputGroup>
                 <InputGroup className="mb-3">
-                  {this.state.image && <img src={this.state.plantPreview} />}
+                  {this.state.image && <img src={this.state.plantPreview} />}3
                  <Form.File name="plant-image" id="exampleFormControlFile1" label="Example file input" onChange={this.handleImage}/>
                 </InputGroup>
               </Modal.Body>

@@ -5,7 +5,7 @@ from .import models
 
 # Create your views here.
 class CommunityListView(generics.ListCreateAPIView):
-    queryset = models.Community.objects.all()
+    queryset = models.Community.objects.all().order_by('-created_at')
     serializer_class = CommunitySerializer
 
     def perform_create(self, serializer):

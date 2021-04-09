@@ -7,6 +7,12 @@ import Form from 'react-bootstrap/Form';
 import Profile from "./Profile";
 import Cookies from "js-cookie";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import {faEdit} from '@fortawesome/free-solid-svg-icons';
+import {faClipboardList} from '@fortawesome/free-solid-svg-icons';
+import {faPencilAlt} from '@fortawesome/free-solid-svg-icons';
+import {faSave} from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -50,27 +56,22 @@ async editNote(){
   render() {
     return(
       <>
+      <div className="d-flex align-items-baseline">
       {this.state.isEditing
         ?
-        <input type="text" name="entry" value={this.state.entry} onChange={this.handleInput}/>
+        <>
+        <textarea className="mr-3" type="text" name="entry" value={this.state.entry} onChange={this.handleInput}></textarea>
+        <Button className="note-buttons ml-auto" variant="secondary" onClick={this.editNote}><FontAwesomeIcon icon={faSave} /></Button>
+        </>
         :
         <>
-          {this.state.entry && <p>{this.state.entry}</p>}
-          {this.props.note.upload && <img src={this.props.note.upload} />}
+          {this.state.entry && <p style={{'font-size': '25px', 'margin-right': '1rem'}}>{this.state.entry}</p>}
+          <Button className="note-buttons ml-auto" variant="secondary" onClick={() => this.setState({isEditing: true})}><FontAwesomeIcon icon={faPencilAlt} /></Button>
         </>
       }
-
-      {this.state.isEditing
-
-        ?
-          <Button variant="secondary" onClick={this.editNote}>save</Button>
-        :
-          <Button variant="secondary" onClick={() => this.setState({isEditing: true})}>edit</Button>
-      }
-
-
-      <Button variant="danger" onClick={() => this.props.removeNote(this.props.note.id)}>delete</Button>
-
+        <Button className="note-buttons" variant="danger" onClick={() => this.props.removeNote(this.props.note.id)} ><FontAwesomeIcon icon={faTrash} /></Button>
+      </div>
+      {this.props.note.upload && <img className="mb-2" src={this.props.note.upload} />}
       </>
     )
   }
@@ -172,9 +173,11 @@ class Plant extends Component {
         <h1 className="user-title">{this.state.common_name}</h1>
         <p>{this.state.family}</p>
         <p>{this.state.publication_year}</p>
-        <button className="btn btn-light note-btn" onClick={() => this.setState({show: true})}>Add Note</button>
-        <button className="btn btn-secondary note-btn" onClick={() => this.setState({showNotes: true})}>Show Notes</button>
-        <button className="btn btn-secondary note-btn" onClick={() => this.props.removePlant(this.state.id)}>Remove Plant</button>
+        <div className="note-buttons">
+          <button className="btn btn-success note-btn" onClick={() => this.setState({show: true})}><FontAwesomeIcon icon={faEdit} /></button>
+          <button className="btn btn-secondary note-btn" onClick={() => this.setState({showNotes: true})}><FontAwesomeIcon icon={faClipboardList} /></button>
+          <button className="btn btn-danger note-btn" onClick={() => this.props.removePlant(this.state.id)}><FontAwesomeIcon icon={faTrash} /></button>
+        </div>
       </div>
 
       <Modal show={this.state.show} onHide={() => this.setState({show: false})}>
@@ -211,7 +214,7 @@ class Plant extends Component {
         <Modal.Title>{this.state.common_name}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>{notes}</p>
+        {notes}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => this.setState({showNotes: false})}>

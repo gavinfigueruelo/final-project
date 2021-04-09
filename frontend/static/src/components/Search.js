@@ -105,7 +105,7 @@ class Search extends Component {
   async addPlant(plant) {
     const obj = {
       common_name: plant.common_name,
-      family: plant.family,
+      family: plant.family_common_name,
       image_url: plant.image_url,
       publication_year: plant.year,
       api_id: plant.id,

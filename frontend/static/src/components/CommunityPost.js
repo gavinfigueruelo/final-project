@@ -1,101 +1,85 @@
 import React, { Component } from "react";
 import Cookies from "js-cookie";
 
-const endpoint = "/api/v1/community/";
+
 
 class CommunityPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
       post: "",
-      image_upload:"",
+      image_upload: null,
+      preview: '',
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.addMessages = this.addMessages.bind(this);
+    this.handleImage = this.handleImage.bind(this);
   }
 
   handleInput(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
 
-    const message = {
-      post: this.state.post,
-    };
-    console.log("message i sent", message);
-    fetch(`${endpoint}`, {
+    const formData = new FormData();
+    formData.append('post', this.state.post);
+
+    if(this.state.image_upload) {
+      formData.append('image_upload', this.state.image_upload)
+    }
+
+    const options = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
-      body: JSON.stringify(message),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Bad Post request");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        this.props.addMessages(data);
-        console.log("Message sent!", data);
-      })
-      .catch(error => console.log("Error:", error))
-      .finally("I am always going to fire!");
-    this.setState({ post: "" })
+      body: formData,
+    }
+
+
+    const response = await fetch(`/api/v1/community/`, options);
+
+    if(response.status === 201) {
+      const json = await response.json();
+      this.props.addPost(json);
+      this.setState({post: '' , image_uplaod: null, preview: ''});
+    }
   };
 
-  componentDidMount() {
-    fetch(`${endpoint}`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log("response", result);
-          this.setState({
-            messages: result,
-          });
-        },
-        (error) => {
-          this.setState({
-            error,
-          });
-        }
-      );
-  }
-  addMessages(message) {
-    const messages = [...this.state.messages];
-    console.log("messaging", message);
-    messages.push(message);
-    this.setState({ messages });
+  handleImage(event) {
+
+      let file = event.target.files[0];
+      this.setState({ image_upload: file });
+
+      let reader = new FileReader();
+      reader.onloadend = () => {
+        this.setState({ preview: reader.result });
+      };
+      reader.readAsDataURL(file);
   }
 
   render() {
     return (
       <div className="container_post">
-        <form className="form">
+        <form className="form_post" onSubmit={this.handleSubmit}>
           <div className="com_post">
             <label className="post-info" htmlFor="community-post">
               Ask a Question, Share a Thought, or Post a Picture of Your Plant!
             </label>
             <br />
-            <input
-              type="text"
-              name="post"
-              id="community-post"
-              value={this.state.post}
-              onChange={this.handleInput}
-              placeholder="type message here"
-              required
-            />
-            <input type="file" namespace="file_post" onChange={this.handleInput}/>
-            <button className="btn btn-light" type="submit" onClick={this.handleSubmit}>
+            {this.state.image_upload && <img src={this.state.preview} />}
+            <textarea rows="3" columns="10" name="post" id="community-post" value={this.state.post} onChange={this.handleInput}
+            placeholder="type message here" className="message-input"
+            required />
+
+            <input type="file" className="file_post" onChange={this.handleImage}/>
+            <div className="post-btn">
+            <button className="btn btn-light" type="submit">
               Post!
             </button>
+           </div>
           </div>
         </form>
       </div>
