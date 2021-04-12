@@ -162,7 +162,7 @@ class Search extends Component {
               placeholder="Search"
             />
 
-            <div className="d-flex ml-auto">
+            <div className="d-flex ml-auto pag-btns">
               <NavLink className={`nav-link ${this.state.page === "1" ? "disabled": "display"}`} to={`/?page=${Number(this.state.page) - 1}`}>Prev</NavLink>
               <NavLink className={`nav-link ${this.state.page === "18879" ? "disabled": "display"}`} to={`/?page=${Number(this.state.page) + 1}`}>Next</NavLink>
             </div>

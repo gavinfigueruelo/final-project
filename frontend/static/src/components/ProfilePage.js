@@ -170,9 +170,9 @@ class Plant extends Component {
       <div className='card plantprof' key={this.state.id}>
         {this.state.image && <img className='card-img-top' src={this.state.image} alt="plant" />}
         {!this.state.image && this.state.image_url && <img className='card-img-top' src={this.state.image_url} alt="plant" />}
-        <h1 className="user-title">{this.state.common_name}</h1>
-        <p>{this.state.family}</p>
-        <p>{this.state.publication_year}</p>
+        <h1 className="user-title p-2">{this.state.common_name}</h1>
+        <p className="p-2">{this.state.family}</p>
+        <p className="p-2">{this.state.publication_year}</p>
         <div className="note-buttons">
           <button className="btn btn-success note-btn" onClick={() => this.setState({show: true})}><FontAwesomeIcon icon={faEdit} /></button>
           <button className="btn btn-secondary note-btn" onClick={() => this.setState({showNotes: true})}><FontAwesomeIcon icon={faClipboardList} /></button>

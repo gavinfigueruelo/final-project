@@ -158,6 +158,11 @@ ul.nav-bar {
   height: 40px; */
 }
 
+.card {
+  border: 7px solid #B2D0B4;
+  border-style: double;
+}
+
 .plant_list {
   position: relative;
   top: 75px;
@@ -175,6 +180,11 @@ ul.nav-bar {
   position: relative;
   top: 75px;
   max-width: 1400px;
+}
+
+.pag-btns {
+  background-color: white;
+  border: 4px solid #86C67C;
 }
 
 /* ////////////////////////////////////COMMUNITY */
@@ -321,13 +331,21 @@ column-count: 4;
 
 }
 
-.edit-prof-btn {
+.profile_edit {
+  background-color: #86C67C;
+}
+
+.edit-view {
+  background-color: #86C67C;
+}
+
+/* .edit-prof-btn {
 
 }
 
 .add_plant_btn {
   padding-right: 5px;
-}
+} */
 
 .profile_picture_edit {
   text-align: center;
@@ -347,6 +365,7 @@ column-count: 4;
 }
 
 .plantprof {
-  border: 7px solid #86C67C;
-  
+  border: 7px solid #838B83;
+  background-color: #B2D0B4
+
 }

@@ -38,9 +38,9 @@ function WelcomeBack(props) {
         <button
           className="btn btn-light logout-btn"
           onClick={(e) => props.handleLogOut(e)}
-          type="button" 
+          type="button"
         >
-          LogOut
+          Logout
         </button>
       </ul>
     </div>

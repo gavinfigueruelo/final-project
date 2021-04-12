@@ -62,6 +62,15 @@ class Profile extends Component {
 
   }
 
+//   async getImage(item) {
+//     try {
+//         return {this.state.profile_picture};
+//     }
+//     catch (e) {
+//         return ('./images/defaultprofile.png');
+//     }
+// }
+
   handleInput(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
@@ -146,7 +155,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className="profile_edit card">
+      <div className="card profile_edit">
 
 
         {this.state.isEditing
@@ -187,16 +196,16 @@ class Profile extends Component {
         <div className="prof-col">
         <div className="text-center" key={this.state.id}>
           <div className="card-img-top top-pic">
-            <img className='card-profile' src={this.state.profile_picture} alt="profilepicture here" />
+            <img className='card-profile' src={this.state.profile_picture} alt="defaultprofile.png" />
           </div>
           <div className="card-body d-flex flex-column">
             <h1 className="card-title"> {this.state.username}</h1>
             <p>{this.state.bio}</p>
             <div className="profile-btns">
-            <button className="btn btn-light edit-prof-btn" type="submit" onClick={() => this.setState({ isEditing: !this.state.isEditing})} >
+            <button className="btn btn-light m-2 edit-prof-btn" type="submit" onClick={() => this.setState({ isEditing: !this.state.isEditing})} >
             Edit
             </button>
-            <button className="btn btn-light add_plant_btn" type="submit" onClick={() => this.setState({ show: true})} >
+            <button className="btn btn-light m-2 add_plant_btn" type="submit" onClick={() => this.setState({ show: true})} >
             Add Plant
             </button>
           </div>
