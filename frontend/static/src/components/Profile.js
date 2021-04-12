@@ -96,27 +96,11 @@ class Profile extends Component {
       body: formData,
     };
 
-    const response = await fetch("/api/v1/profiles/update/", options);
+    const response = await fetch("/api/v1/profiles/detail/", options);
     const data = await response.json().catch((error) => console.log(error));
-    console.log('updated profile', data);
+    console.log('updated profile', formdata);
 
     this.setState({ isEditing: !this.state.isEditing, bio: data.bio, profile_picture: data.profile_picture});
-    // const obj = {
-    //   profile_picture: user.profile_picture,
-    //   bio: user.bio,
-    // };
-    // const options = {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "X-CSRFToken": Cookies.get("csrftoken"),
-    //   },
-    //   body: JSON.stringify(obj),
-    // };
-    // const response = await fetch("/api/v1/profiles/update/", options);
-    // console.log(response)
-    // window.location.reload();
-
   }
 
   async addPlant() {
