@@ -28,6 +28,10 @@ class Profile extends Component {
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addPlant = this.addPlant.bind(this);
+    this.handleSubmitProfile = this.handleSubmitProfile.bind(this);
+    // this.addProfile = this.addProfile.bind(this);
+
+
   }
 
   async componentDidMount() {
@@ -62,15 +66,6 @@ class Profile extends Component {
 
   }
 
-//   async getImage(item) {
-//     try {
-//         return {this.state.profile_picture};
-//     }
-//     catch (e) {
-//         return ('./images/defaultprofile.png');
-//     }
-// }
-
   handleInput(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
@@ -80,6 +75,40 @@ class Profile extends Component {
         this.setState({ isEditing: false });
       }
     }
+
+  async handleSubmitProfile(event) {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('profile_picture', this.state.profile_picture);
+
+    if(this.state.image_upload) {
+      formData.append('bio', this.state.bio)
+    }
+
+    const options = {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+      body: formData,
+    }
+
+
+    const response = await fetch("/api/v1/profiles/detail/", options);
+
+    if(response.status === 200) {
+      const json = await response.json();
+      // this.props.addProfile(formData);
+      this.setState({profile_picture: null , bio: "", profilePreview: ''});
+    }
+  };
+
+  // addProfile(profile_picture) {
+  //   const profile_pictures = [...this.state.profile_picture];
+  //   profile_pictures.unshift(profile_picture);
+  //   this.setState({profile_pictures});
+  // }
 
   async handleSubmit(event) {
     event.preventDefault();
@@ -98,9 +127,25 @@ class Profile extends Component {
 
     const response = await fetch("/api/v1/profiles/detail/", options);
     const data = await response.json().catch((error) => console.log(error));
-    console.log('updated profile', formdata);
+    console.log('updated profile', data);
 
     this.setState({ isEditing: !this.state.isEditing, bio: data.bio, profile_picture: data.profile_picture});
+    // const obj = {
+    //   profile_picture: user.profile_picture,
+    //   bio: user.bio,
+    // };
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "X-CSRFToken": Cookies.get("csrftoken"),
+    //   },
+    //   body: JSON.stringify(obj),
+    // };
+    // const response = await fetch("/api/v1/profiles/update/", options);
+    // console.log(response)
+    // window.location.reload();
+
   }
 
   async addPlant() {

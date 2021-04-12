@@ -130,7 +130,9 @@ class App extends Component {
             <Community />
           </Route>
           <Route exact path="/">
-            <Search />
+            <Search
+              isLoggedIn={this.state.isLoggedIn}
+            />
           </Route>
         </Switch>
       </React.Fragment>

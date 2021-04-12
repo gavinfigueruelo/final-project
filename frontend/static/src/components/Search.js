@@ -138,13 +138,11 @@ class Search extends Component {
           <p className="card-text">
             {plant.family_common_name}
           </p>
-          <button
-            type="button"
-            className="btn btn-link ml-auto"
-            onClick={() => this.addPlant(plant)}
-          >
-            Add to profile
-          </button>
+          {this.props.isLoggedIn && (
+            <button type="button" className="btn btn-link ml-auto" onClick={() => this.addPlant(plant)}>
+              Add to profile
+            </button>
+          )}
         </div>
       </div>
     ));
