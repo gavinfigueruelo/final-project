@@ -211,7 +211,11 @@ class Profile extends Component {
                 onKeyUp={(event) => this.handleEdit(event)}
                />
               <p>bio</p>
+              {if({this.state.profile_picture} == null) && (
+                <button className="btn btn-submit" type="button" onClick={(e) => this.handleSubmitProfile(e)} >save</button>
+              )}
               <button className="btn btn-submit" type="button" onClick={(e) => this.handleSubmit(e)} >save</button>
+
             </div>
           </>
           :
